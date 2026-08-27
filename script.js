@@ -326,6 +326,8 @@
     let isPlaying = false;
     let shuffleEnabled = false;
     let repeatMode = "off";
+    let playbackSource = "album";
+    let currentLikedPosition = -1;
 
     const modeTools = window.NovaPlayerModes;
 
@@ -427,24 +429,54 @@
     }
 
     function goToNextTrack(fromEnded = false) {
-      const tracks = getActiveTracks();
-      const nextIndex = modeTools.getNextTrackIndex({
-        currentIndex: currentSong,
-        trackCount: tracks.length,
+  if (playbackSource === "liked") {
+    const likedSongs = getValidLikedSongs();
+
+    if (!likedSongs.length) {
+      playbackSource = "album";
+      currentLikedPosition = -1;
+      setPlayingUI(false);
+      return false;
+    }
+
+    const nextPosition =
+      modeTools.getNextTrackIndex({
+        currentIndex: currentLikedPosition,
+        trackCount: likedSongs.length,
         shuffle: shuffleEnabled,
         repeatMode,
         fromEnded
       });
 
-      if (nextIndex === null) {
-        setPlayingUI(false);
-        return false;
-      }
-
-      loadSong(nextIndex);
-      playSong();
-      return true;
+    if (nextPosition === null) {
+      setPlayingUI(false);
+      return false;
     }
+
+    playLikedSongAt(nextPosition);
+    return true;
+  }
+
+  const tracks = getActiveTracks();
+
+  const nextIndex =
+    modeTools.getNextTrackIndex({
+      currentIndex: currentSong,
+      trackCount: tracks.length,
+      shuffle: shuffleEnabled,
+      repeatMode,
+      fromEnded
+    });
+
+  if (nextIndex === null) {
+    setPlayingUI(false);
+    return false;
+  }
+
+  loadSong(nextIndex);
+  playSong();
+  return true;
+}
 
     function updateSelectedCard() {
       cards.forEach((card, index) => {
@@ -542,32 +574,82 @@
         )
       );
     }
+    function getValidLikedSongs() {
+  return likedSongIds.filter(id => {
+    const [albumIndex, trackIndex] =
+      id.split(":").map(Number);
 
-    function toggleLike(
-      albumIndex,
-      trackIndex
-    ) {
-      const id =
-        getSongId(
-          albumIndex,
-          trackIndex
-        );
+    return Boolean(
+      albums[albumIndex] &&
+      albums[albumIndex].tracks[trackIndex]
+    );
+  });
+}
 
-      if (
-        likedSongIds.includes(id)
+function playLikedSongAt(position) {
+  const likedSongs = getValidLikedSongs();
+
+  if (!likedSongs.length) {
+    playbackSource = "album";
+    currentLikedPosition = -1;
+    return;
+  }
+
+  currentLikedPosition =
+    (position + likedSongs.length) %
+    likedSongs.length;
+
+  const [albumIndex, trackIndex] =
+    likedSongs[currentLikedPosition]
+      .split(":")
+      .map(Number);
+
+  playbackSource = "liked";
+  currentAlbum = albumIndex;
+
+  document.body.dataset.theme =
+    albums[currentAlbum].theme || "default";
+
+  renderAlbumSongs();
+  updateSelectedCard();
+  loadSong(trackIndex);
+  playSong();
+}
+
+    function toggleLike(albumIndex, trackIndex) {
+  const id = getSongId(albumIndex, trackIndex);
+  const removingIndex = likedSongIds.indexOf(id);
+
+  if (removingIndex !== -1) {
+    likedSongIds = likedSongIds.filter(
+      item => item !== id
+    );
+
+    if (playbackSource === "liked") {
+      if (!likedSongIds.length) {
+        playbackSource = "album";
+        currentLikedPosition = -1;
+      } else if (
+        removingIndex < currentLikedPosition
       ) {
-        likedSongIds =
-          likedSongIds.filter(
-            item => item !== id
-          );
-      } else {
-        likedSongIds.push(id);
+        currentLikedPosition--;
+      } else if (
+        removingIndex === currentLikedPosition
+      ) {
+        currentLikedPosition = Math.min(
+          currentLikedPosition,
+          likedSongIds.length - 1
+        );
       }
-
-      saveLikes();
-      renderAlbumSongs();
-      renderLikedSongs();
     }
+  } else {
+    likedSongIds.push(id);
+  }
+
+  saveLikes();
+  renderAlbumSongs();
+  renderLikedSongs();
+}
 
     function renderLikedSongs() {
       if (!likedSongsList) {
@@ -882,6 +964,8 @@
       index,
       autoplay = false
     ) {
+      playbackSource = "album";
+      currentLikedPosition = -1;
       currentAlbum =
         (
           index +
@@ -1262,14 +1346,17 @@
     previous
       ?.addEventListener(
         "click",
-        () => {
-          loadSong(
-            currentSong - 1
+      () => {
+        if (playbackSource === "liked") {
+          playLikedSongAt(
+            currentLikedPosition - 1
           );
-
+        } else {
+          loadSong(currentSong - 1);
           playSong();
         }
-      );
+      }
+    );
 
     next
       ?.addEventListener(
@@ -1546,8 +1633,10 @@
             return;
           }
 
-          loadSong(index);
+          playbackSource = "album";
+          currentLikedPosition = -1;
 
+          loadSong(index);
           playSong();
 
           $("#player")
@@ -1615,16 +1704,14 @@
             return;
           }
 
-          selectAlbum(
-            albumIndex,
-            false
-          );
+          const likedPosition =
+            getValidLikedSongs().indexOf(
+              getSongId(albumIndex, trackIndex)
+            );
 
-          loadSong(
-            trackIndex
-          );
-
-          playSong();
+          if (likedPosition !== -1) {
+            playLikedSongAt(likedPosition);
+          }        
 
           $("#player")
             ?.scrollIntoView({
