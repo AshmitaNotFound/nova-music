@@ -2335,96 +2335,89 @@
   }
 
   // ============================================
-  // CURSOR GLOW + ORB PARALLAX
+  // VINYL CURSOR + MOBILE TOUCH VINYL
   // ============================================
 
-  const cursorGlow =
-    $("#cursorGlow");
+  const cursorVinyl = $("#cursorVinyl");
+  const touchVinyl = $("#touchVinyl");
+  const finePointerQuery = window.matchMedia(
+    "(hover: hover) and (pointer: fine)"
+  );
 
-  const orbs =
-    $$(".orb");
+  if (finePointerQuery.matches && cursorVinyl) {
+    document.documentElement.classList.add("nova-custom-cursor");
 
-  if (
-    desktopMotionQuery.matches
-  ) {
-    let pointerFrame = 0;
-
-    let lastPointerX = 0;
-    let lastPointerY = 0;
+    let cursorFrame = 0;
+    let pointerX = -100;
+    let pointerY = -100;
 
     window.addEventListener(
       "pointermove",
       event => {
-        lastPointerX =
-          event.clientX;
+        if (event.pointerType === "touch") return;
 
-        lastPointerY =
-          event.clientY;
+        pointerX = event.clientX;
+        pointerY = event.clientY;
 
-        if (pointerFrame) {
-          return;
-        }
+        const overTextInput = Boolean(
+          event.target.closest(
+            'input:not([type="range"]), textarea, [contenteditable="true"]'
+          )
+        );
 
-        pointerFrame =
-          window.requestAnimationFrame(
-            () => {
-              pointerFrame = 0;
+        cursorVinyl.classList.toggle("hidden", overTextInput);
+        cursorVinyl.classList.remove("offscreen");
 
-              if (
-                cursorGlow
-              ) {
-                cursorGlow.style.transform =
-                  `translate3d(
-                    ${lastPointerX}px,
-                    ${lastPointerY}px,
-                    0
-                  )`;
-              }
+        if (cursorFrame) return;
 
-              const nx =
-                lastPointerX /
-                window.innerWidth -
-                0.5;
-
-              const ny =
-                lastPointerY /
-                window.innerHeight -
-                0.5;
-
-              orbs.forEach(
-                (
-                  orb,
-                  index
-                ) => {
-                  const strength =
-                    (
-                      index + 1
-                    ) *
-                    12;
-
-                  orb.style.setProperty(
-                    "--px",
-                    `${
-                      nx *
-                      strength
-                    }px`
-                  );
-
-                  orb.style.setProperty(
-                    "--py",
-                    `${
-                      ny *
-                      strength
-                    }px`
-                  );
-                }
-              );
-            }
-          );
+        cursorFrame = window.requestAnimationFrame(() => {
+          cursorFrame = 0;
+          cursorVinyl.style.transform =
+            `translate3d(${pointerX - 17}px, ${pointerY - 17}px, 0)`;
+        });
       },
-      {
-        passive: true
+      { passive: true }
+    );
+
+    document.addEventListener("pointerdown", event => {
+      if (event.pointerType !== "touch") {
+        cursorVinyl.classList.add("pressed");
       }
+    });
+
+    document.addEventListener("pointerup", () => {
+      cursorVinyl.classList.remove("pressed");
+    });
+
+    document.documentElement.addEventListener("mouseleave", () => {
+      cursorVinyl.classList.add("offscreen");
+    });
+  }
+
+  if (touchVinyl) {
+    let touchResetTimer = null;
+
+    window.addEventListener(
+      "pointerdown",
+      event => {
+        const isTouchLike =
+          event.pointerType === "touch" || !finePointerQuery.matches;
+
+        if (!isTouchLike) return;
+
+        touchVinyl.style.transform =
+          `translate3d(${event.clientX - 22}px, ${event.clientY - 62}px, 0)`;
+
+        touchVinyl.classList.remove("active");
+        void touchVinyl.offsetWidth;
+        touchVinyl.classList.add("active");
+
+        window.clearTimeout(touchResetTimer);
+        touchResetTimer = window.setTimeout(() => {
+          touchVinyl.classList.remove("active");
+        }, 680);
+      },
+      { passive: true }
     );
   }
 
@@ -2502,125 +2495,37 @@
   }
 
   // ============================================
-  // STARS
+  // LIGHTWEIGHT VINTAGE DUST
   // ============================================
 
-  const stars =
-    $("#stars");
+  const dustLayer = $("#dustLayer");
 
-  if (
-    stars &&
-    stars.children.length === 0
-  ) {
-    // Desktop: 42
-    // Mobile: 14
-    const starCount =
-      desktopMotionQuery.matches
-        ? 42
-        : 14;
+  if (dustLayer && dustLayer.children.length === 0) {
+    const dustCount = desktopMotionQuery.matches ? 12 : 7;
 
-    for (
-      let i = 0;
-      i < starCount;
-      i++
-    ) {
-      const star =
-        document
-          .createElement(
-            "span"
-          );
+    for (let i = 0; i < dustCount; i++) {
+      const speck = document.createElement("span");
 
-      star.style.left =
-        `${
-          Math.random() *
-          100
-        }%`;
-
-      star.style.top =
-        `${
-          Math.random() *
-          100
-        }%`;
-
-      star.style.animationDelay =
-        `${
-          Math.random() *
-          5
-        }s`;
-
-      star.style.animationDuration =
-        `${
-          3 +
-          Math.random() *
-          5
-        }s`;
-
-      stars.appendChild(
-        star
+      speck.style.left = `${Math.random() * 100}%`;
+      speck.style.top = `${18 + Math.random() * 82}%`;
+      speck.style.setProperty(
+        "--dust-size",
+        `${1 + Math.random() * 1.8}px`
       );
-    }
-  }
+      speck.style.setProperty(
+        "--dust-duration",
+        `${10 + Math.random() * 9}s`
+      );
+      speck.style.setProperty(
+        "--dust-delay",
+        `${-Math.random() * 12}s`
+      );
+      speck.style.setProperty(
+        "--dust-x",
+        `${-30 + Math.random() * 60}px`
+      );
 
-  // ============================================
-  // BACKGROUND PARTICLES
-  // ============================================
-
-  const particleContainer =
-    $("#particles");
-
-  if (
-    particleContainer &&
-    particleContainer
-      .children
-      .length === 0
-  ) {
-    // Desktop: 40
-    // Phone: 12
-    const particleCount =
-      desktopMotionQuery.matches
-        ? 40
-        : 12;
-
-    for (
-      let i = 0;
-      i < particleCount;
-      i++
-    ) {
-      const particle =
-        document
-          .createElement(
-            "span"
-          );
-
-      particle.style.left =
-        `${
-          Math.random() *
-          100
-        }%`;
-
-      particle.style.top =
-        `${
-          Math.random() *
-          100
-        }%`;
-
-      particle.style.animationDuration =
-        `${
-          6 +
-          Math.random() *
-          8
-        }s`;
-
-      particle.style.animationDelay =
-        `${
-          Math.random() *
-          6
-        }s`;
-
-      particleContainer
-        .appendChild(
-          particle
-        );
+      dustLayer.appendChild(speck);
     }
   }
 
@@ -2866,12 +2771,7 @@
       musicCircle.style.transform =
         "";
     }
-
-    if (cursorGlow) {
-      cursorGlow.style.display =
-        "none";
-    }
-  }
+}
 
   // ============================================
   // VISIBILITY PERFORMANCE
