@@ -136,9 +136,9 @@
             audio: "songs1/Desi Heats-01.mp3"
           },
           {
-            title: "Afterglow",
-            artist: "Nova",
-            audio: "songs1/Desi Heats-02.mp3"
+            title: "songs1.1/The Breakup",
+            artist: "Arijit Singh",
+            audio: "songs1.1/Desi Heats-02.mp3"
           },
           {
             title: "Abhi Toh Party",
@@ -164,8 +164,23 @@
             title: "No LOve",
             artist: "Garry",
             audio: "songs1.1/Desi Heats-07.mp3"
-          }
-        ]
+          },
+          {
+             title: "Ainvayi Ainvayi",
+             artist: "Sunidhi Chauhan",
+            audio: "songs1.2/Desi-Heats-08.mp3"
+          },
+          {
+             title: "Sweety Tera Drama",
+             artist: "Rajkummar Tanishk Pawni",
+            audio: "songs1.2/Desi-Heats-09.mp3"
+          },
+          {
+             title: "Tumhi Ho Bandhu",
+             artist: "Pritam",
+            audio: "songs1.2/Desi-Heats-10.mp3"
+          },
+        ]   
       },
 
       {
@@ -175,7 +190,7 @@
 
         tracks: [
           {
-            title: "Midnight City",
+            title: "BINDING LIGHTS",
             artist: "The Weeknd",
             audio: "songs2/song2.mp3"
           },
@@ -190,24 +205,24 @@
             audio: "songs2/midnight-03.mp3"
           },
           {
-            title: "Party All Night",
-            artist: "HONEY SINGH",
+            title: "positions",
+            artist: "Ariana Grande",
             audio: "songs2/midnight-04.mp3"
           },
           {
-            title: "Streetlights",
-            artist: "Lunar",
-            audio: "songs2/midnight-05.mp3"
+            title: "Into It",
+            artist: "Chase Atlantic",
+            audio: "songs2.1/midnight-05.mp3"
           },
           {
-            title: "Violet Roads",
-            artist: "Lunar",
-            audio: "songs2/midnight-06.mp3"
+            title: "SWIM",
+            artist: "Chase Atlantic",
+            audio: "songs2.1/midnight-06.mp3"
           },
           {
             title: "City Sleeps",
             artist: "Lunar",
-            audio: "songs2/midnight-07.mp3"
+            audio: "songs2.1/midnight-07.mp3"
           }
         ]
       },
