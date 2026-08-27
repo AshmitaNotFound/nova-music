@@ -4054,11 +4054,17 @@ body[data-theme="paradise"]
 
     color:
         #ff5b9d;
+
 }
+
+
 /* LIKE ACTIVE */
+
 .track-like.liked {
+
     color:
         #ff5b9d;
+
     background:
         rgba(
             255,
@@ -4102,20 +4108,32 @@ body[data-theme="paradise"]
 
     text-align:
         center;
+
 }
+
+
 .liked-empty-heart {
+
     margin-bottom:
         15px;
+
     color:
         #6d6d78;
+
     font-size:
         36px;
+
 }
+
+
 .liked-empty h3 {
+
     font-size:
         18px;
+
 }
 .liked-empty p {
+
     max-width:
         350px;
 
@@ -4130,7 +4148,10 @@ body[data-theme="paradise"]
 
     line-height:
         1.6;
+
 }
+
+
 /* =====================================
    PARADISE / GOLDEN HOUR
 ===================================== */
@@ -4145,6 +4166,7 @@ body[data-theme="paradise"]
             92,
             0.18
         );
+
     background:
         linear-gradient(
             135deg,
@@ -4189,42 +4211,65 @@ body[data-theme="paradise"]
         );
 
 }
+
+
 /* =====================================
    MOBILE
 ===================================== */
+
 @media(max-width:650px) {
 
     .liked-section {
+
         margin:
             75px
             auto;
+
     }
+
+
     .liked-panel {
+
         padding:
             12px;
+
     }
+
+
     .liked-song {
+
         grid-template-columns:
             32px
             44px
             minmax(0, 1fr)
             38px;
+
         gap:
             8px;
+
         padding:
             10px
             7px;
+
     }
+
+
     .liked-cover {
+
         width:
             42px;
 
         height:
             42px;
+
     }
+
+
     .liked-album-name {
+
         display:
             none;
+
     }
 }
 @media (max-width: 900px) {
