@@ -90,7 +90,7 @@ const searchClose =
       artist: "Nova",
       cover: "images/cover1.jpg",
       tracks: [
-        { title: "Pyaar hota kahi baar hai", artist: "Arijit Singh", audio: "songs/Desi Heats-01.mp3" },
+        { title: "Pyaar hota kahi baar hai", artist: "Arijit Singh", audio: "songs1/Desi Heats-01.mp3" },
         { title: "Afterglow", artist: "Nova", audio: "songs1/Desi Heats-02.mp3" },
         { title: "Abhi Toh Party", artist: "Badsha", audio: "songs1/Desi Heats-03.mp3" },
         { title: "Saree ka Falsa", artist: "Antara mitra", audio: "songs1.1/Desi Heats-04.mp3" },
