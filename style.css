@@ -3999,30 +3999,19 @@ body[data-theme="paradise"]
 
     font-size:
         11px;
-
 }
-
-
 /* Album name */
-
 .liked-album-name {
-
     color:
         #74747f;
-
     font-size:
         10px;
-
     letter-spacing:
         1px;
-
 }
-
-
 /* =====================================
    HEART BUTTON
 ===================================== */
-
 .track-actions{
     display:flex;
     align-items:center;
@@ -4030,8 +4019,6 @@ body[data-theme="paradise"]
     gap:12px;
     min-width:110px;
 }
-
-
 .track-like,
 .liked-remove{
     width:44px;
@@ -4145,8 +4132,6 @@ body[data-theme="paradise"]
         18px;
 
 }
-
-
 .liked-empty p {
 
     max-width:
@@ -4286,5 +4271,19 @@ body[data-theme="paradise"]
             none;
 
     }
-
+}
+@media (max-width: 900px) {
+  .site-header,
+  .music-search,
+  .queue-panel,
+  .mini-player,
+  .liked-panel,
+  .album-browser,
+  .player,
+  .song-card,
+  .team-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: rgba(10, 10, 20, 0.92); /* compensate for lost blur */
+  }
 }
