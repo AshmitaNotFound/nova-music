@@ -4476,3 +4476,73 @@ body[data-theme="paradise"]
 
     }
 }
+/* =====================================
+   SOFT BLURRED CURSOR GLOW
+===================================== */
+
+.cursor-glow{
+    position: fixed;
+
+    left: -130px;
+    top: -130px;
+
+    width: 260px;
+    height: 260px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 5;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(145, 91, 255, 0.16) 0%,
+            rgba(83, 129, 255, 0.10) 30%,
+            rgba(0, 217, 255, 0.05) 48%,
+            transparent 70%
+        );
+
+    filter: blur(7px);
+
+    transform:
+        translate3d(
+            -500px,
+            -500px,
+            0
+        );
+
+    opacity: 0;
+
+    transition:
+        opacity .25s ease;
+
+    will-change: transform;
+}
+
+/* mouse page ke andar aaye */
+body:hover .cursor-glow{
+    opacity: 1;
+}
+
+
+/* buttons/cards ke upar slightly stronger */
+body:has(
+    a:hover,
+    button:hover,
+    .song-card:hover,
+    .team-card:hover
+) .cursor-glow{
+    opacity: .95;
+}
+
+
+/* PHONE PAR CURSOR NAHI */
+@media (hover:none), (pointer:coarse){
+
+    .cursor-glow{
+        display:none;
+    }
+
+}
