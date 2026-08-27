@@ -8,43 +8,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="background">
 
-  <div class="mesh-layer"></div>
-  <div class="noise-layer"></div>
-  <div class="grid-glow"></div>
+  <!-- NOVA premium ambient background: one system only -->
+  <div class="background" aria-hidden="true">
+    <div class="mesh-layer"></div>
+    <div class="noise-layer"></div>
 
-  <div class="aurora aurora1"></div>
-  <div class="aurora aurora2"></div>
-
-  <div class="light-beam beam1"></div>
-  <div class="light-beam beam2"></div>
-
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
-
-  <div class="particles" id="particles"></div>
-  <div class="stars" id="stars"></div>
-
-  <div class="cursor-glow" id="cursorGlow"></div>
-</div>
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
-  <div class="background">
     <div class="aurora aurora1"></div>
     <div class="aurora aurora2"></div>
+
+    <div class="light-beam beam1"></div>
+    <div class="light-beam beam2"></div>
 
     <div class="orb orb1"></div>
     <div class="orb orb2"></div>
     <div class="orb orb3"></div>
 
     <div class="particles" id="particles"></div>
-
-    <span class="floating-note note1">♪</span>
-    <span class="floating-note note2">♫</span>
-    <span class="floating-note note3">♬</span>
-    <span class="floating-note note4">♪</span>
+    <div class="stars" id="stars"></div>
   </div>
+
+  <!-- Soft blurred desktop cursor glow -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- Soft touch feedback for phones/tablets -->
+  <div class="touch-glow" id="touchGlow" aria-hidden="true"></div>
 
   <header class="site-header">
     <a href="#home" class="logo">
@@ -187,19 +175,19 @@
       <div class="song-grid">
         <article class="song-card" data-index="0">
           <div class="cover fallback-1">
-            <img src="images/cover1.jpg" alt="DESI HEATS album cover">
+            <img src="images/cover1.jpg" alt="DESI HEATS album cover" loading="lazy" decoding="async">
             <div class="cover-shine"></div>
             <button class="card-play" type="button" aria-label="Play DESI HEATS album">▶</button>
           </div>
           <div class="song-card-meta">
-            <div><h3>DESI HEATS><p>Nova • 7 tracks</p></div>
+            <div><h3>DESI HEATS</h3><p>Nova • 7 tracks</p></div>
             <span>01</span>
           </div>
         </article>
 
         <article class="song-card" data-index="1">
           <div class="cover fallback-2">
-            <img src="images/cover2.jpg" alt="Midnight City album cover">
+            <img src="images/cover2.jpg" alt="Midnight City album cover" loading="lazy" decoding="async">
             <div class="cover-shine"></div>
             <button class="card-play" type="button" aria-label="Play Midnight City album">▶</button>
           </div>
@@ -211,7 +199,7 @@
 
         <article class="song-card" data-index="2">
           <div class="cover fallback-3">
-            <img src="images/cover3.jpg" alt="Paradise album cover">
+            <img src="images/cover3.jpg" alt="Paradise album cover" loading="lazy" decoding="async">
             <div class="cover-shine"></div>
             <button class="card-play" type="button" aria-label="Play Paradise album">▶</button>
           </div>
@@ -223,7 +211,7 @@
 
         <article class="song-card" data-index="3">
           <div class="cover fallback-4">
-            <img src="images/cover4.jpg" alt="Ocean Dreams album cover">
+            <img src="images/cover4.jpg" alt="Ocean Dreams album cover" loading="lazy" decoding="async">
             <div class="cover-shine"></div>
             <button class="card-play" type="button" aria-label="Play Ocean Dreams album">▶</button>
           </div>
