@@ -1,0 +1,14 @@
+{
+  "name": "nova-music",
+  "version": "1.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test player-modes.test.js server.test.js structure.test.js",
+    "check": "node --check script.js && node --check server.js && node --check player-modes.js && node --check server-state.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  }
+}
