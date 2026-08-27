@@ -221,45 +221,45 @@
 
       tracks: [
         {
-          title: "Paradise",
-          artist: "Echo",
-          audio: "songs/song3.mp3"
+          title: "SAMJHO NA ( NASAMAJH )",
+          artist: "Aditya Rikhari",
+          audio: "songs3/Paradise1.mp3"
         },
 
         {
-          title: "Golden Air",
-          artist: "Echo",
-          audio: "songs/paradise-02.mp3"
+          title: "Jhol",
+          artist: "Maanu x Annural Khali ",
+          audio: "songs3/Paradise2.mp3"
         },
 
         {
-          title: "Sunroom",
-          artist: "Echo",
-          audio: "songs/paradise-03.mp3"
+          title: "Woh ft. Sthiti",
+          artist: "Khatth",
+          audio: "songs3/Paradise3.mp3"
         },
 
         {
-          title: "Open Water",
-          artist: "Echo",
-          audio: "songs/paradise-04.mp3"
+          title: "Bairan",
+          artist: "Banjaare",
+          audio: "songs3/Paradise4.mp3"
         },
 
         {
-          title: "Daydream",
-          artist: "Echo",
-          audio: "songs/paradise-05.mp3"
+          title: "Preet Re",
+          artist: "Triptii Dimri",
+          audio: "songs3/Paradise5.mp3"
         },
 
         {
           title: "Wildflower",
           artist: "Echo",
-          audio: "songs/paradise-06.mp3"
+          audio: "songs3.1/Paradise6.mp3"
         },
 
         {
           title: "Home Again",
           artist: "Echo",
-          audio: "songs/paradise-07.mp3"
+          audio: "songs3.1/Paradise7.mp3"
         }
       ]
     },
@@ -1984,79 +1984,7 @@
           }
         );
 
-      // Desktop-only 3D
-      if (
-        desktopMotionQuery.matches
-      ) {
-        card.addEventListener(
-          "pointermove",
-          event => {
-            const rect =
-              card
-                .getBoundingClientRect();
-
-            if (
-              !rect.width ||
-              !rect.height
-            ) {
-              return;
-            }
-
-            const x =
-              event.clientX -
-              rect.left;
-
-            const y =
-              event.clientY -
-              rect.top;
-
-            const rotateY =
-              (
-                (
-                  x /
-                  rect.width
-                ) -
-                0.5
-              ) *
-              10;
-
-            const rotateX =
-              (
-                (
-                  y /
-                  rect.height
-                ) -
-                0.5
-              ) *
-              -10;
-
-            card.style.transform = `
-              perspective(900px)
-              rotateX(${rotateX}deg)
-              rotateY(${rotateY}deg)
-              translateY(-7px)
-            `;
-
-            card.style.setProperty(
-              "--mouse-x",
-              `${x}px`
-            );
-
-            card.style.setProperty(
-              "--mouse-y",
-              `${y}px`
-            );
-          }
-        );
-
-        card.addEventListener(
-          "pointerleave",
-          () => {
-            card.style.transform =
-              "";
-          }
-        );
-      }
+      // Lightweight hover motion is handled by CSS.
     }
   );
 
@@ -2211,321 +2139,57 @@
     );
 
   // ============================================
-  // TEAM CARD 3D
+  // LIGHTWEIGHT HOVER ELEMENTS
   // ============================================
 
-  const teamCards =
-    $$(".team-card");
+  const teamCards = $$(".team-card");
+  const magneticItems = $$(".magnetic-btn, .magnetic-social");
 
-  if (
-    desktopMotionQuery.matches
-  ) {
-    teamCards.forEach(
-      card => {
-        card.addEventListener(
-          "pointermove",
-          event => {
-            const rect =
-              card
-                .getBoundingClientRect();
+  // Expensive pointer-position 3D/magnetic tracking removed.
+  // CSS hover transitions keep the interaction lightweight.
 
-            if (
-              !rect.width ||
-              !rect.height
-            ) {
-              return;
-            }
+  // ============================================
+  // HERO VISUAL
+  // ============================================
 
-            const x =
-              event.clientX -
-              rect.left;
+  const heroVisual = $("#heroVisual");
+  const musicCircle = $("#musicCircle");
 
-            const y =
-              event.clientY -
-              rect.top;
+  // CSS pulse/equalizer animation remains. Pointer-position 3D tracking
+  // was removed to avoid repeated layout reads while moving the mouse.
 
-            const rotateY =
-              (
-                (
-                  x /
-                  rect.width
-                ) -
-                0.5
-              ) *
-              7;
+  // ============================================
+  // RESPONSIVE STARS + PARTICLES
+  // ============================================
 
-            const rotateX =
-              (
-                (
-                  y /
-                  rect.height
-                ) -
-                0.5
-              ) *
-              -7;
+  const stars = $("#stars");
+  const particleContainer = $("#particles");
 
-            card.style.transform = `
-              perspective(900px)
-              rotateX(${rotateX}deg)
-              rotateY(${rotateY}deg)
-              translateY(-5px)
-            `;
-          }
-        );
+  if (stars && stars.children.length === 0) {
+    const starCount = desktopMotionQuery.matches ? 18 : 8;
 
-        card.addEventListener(
-          "pointerleave",
-          () => {
-            card.style.transform =
-              "";
-          }
-        );
-      }
-    );
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement("span");
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.setProperty("--star-speed", `${3.5 + Math.random() * 5}s`);
+      star.style.setProperty("--star-delay", `${-Math.random() * 6}s`);
+      stars.appendChild(star);
+    }
   }
 
-  // ============================================
-  // MAGNETIC BUTTONS
-  // ============================================
+  if (particleContainer && particleContainer.children.length === 0) {
+    const particleCount = desktopMotionQuery.matches ? 10 : 5;
 
-  const magneticItems =
-    $$(
-      ".magnetic-btn, .magnetic-social"
-    );
-
-  if (
-    desktopMotionQuery.matches
-  ) {
-    magneticItems.forEach(
-      item => {
-        item.addEventListener(
-          "pointermove",
-          event => {
-            const rect =
-              item
-                .getBoundingClientRect();
-
-            const x =
-              event.clientX -
-              rect.left -
-              rect.width / 2;
-
-            const y =
-              event.clientY -
-              rect.top -
-              rect.height / 2;
-
-            item.style.transform =
-              `translate(
-                ${x * 0.13}px,
-                ${y * 0.13}px
-              )`;
-          }
-        );
-
-        item.addEventListener(
-          "pointerleave",
-          () => {
-            item.style.transform =
-              "";
-          }
-        );
-      }
-    );
-  }
-
-  // ============================================
-  // VINYL CURSOR + MOBILE TOUCH VINYL
-  // ============================================
-
-  const cursorVinyl = $("#cursorVinyl");
-  const touchVinyl = $("#touchVinyl");
-  const finePointerQuery = window.matchMedia(
-    "(hover: hover) and (pointer: fine)"
-  );
-
-  if (finePointerQuery.matches && cursorVinyl) {
-    document.documentElement.classList.add("nova-custom-cursor");
-
-    let cursorFrame = 0;
-    let pointerX = -100;
-    let pointerY = -100;
-
-    window.addEventListener(
-      "pointermove",
-      event => {
-        if (event.pointerType === "touch") return;
-
-        pointerX = event.clientX;
-        pointerY = event.clientY;
-
-        const overTextInput = Boolean(
-          event.target.closest(
-            'input:not([type="range"]), textarea, [contenteditable="true"]'
-          )
-        );
-
-        cursorVinyl.classList.toggle("hidden", overTextInput);
-        cursorVinyl.classList.remove("offscreen");
-
-        if (cursorFrame) return;
-
-        cursorFrame = window.requestAnimationFrame(() => {
-          cursorFrame = 0;
-          cursorVinyl.style.transform =
-            `translate3d(${pointerX - 17}px, ${pointerY - 17}px, 0)`;
-        });
-      },
-      { passive: true }
-    );
-
-    document.addEventListener("pointerdown", event => {
-      if (event.pointerType !== "touch") {
-        cursorVinyl.classList.add("pressed");
-      }
-    });
-
-    document.addEventListener("pointerup", () => {
-      cursorVinyl.classList.remove("pressed");
-    });
-
-    document.documentElement.addEventListener("mouseleave", () => {
-      cursorVinyl.classList.add("offscreen");
-    });
-  }
-
-  if (touchVinyl) {
-    let touchResetTimer = null;
-
-    window.addEventListener(
-      "pointerdown",
-      event => {
-        const isTouchLike =
-          event.pointerType === "touch" || !finePointerQuery.matches;
-
-        if (!isTouchLike) return;
-
-        touchVinyl.style.transform =
-          `translate3d(${event.clientX - 22}px, ${event.clientY - 62}px, 0)`;
-
-        touchVinyl.classList.remove("active");
-        void touchVinyl.offsetWidth;
-        touchVinyl.classList.add("active");
-
-        window.clearTimeout(touchResetTimer);
-        touchResetTimer = window.setTimeout(() => {
-          touchVinyl.classList.remove("active");
-        }, 680);
-      },
-      { passive: true }
-    );
-  }
-
-  // ============================================
-  // HERO 3D
-  // ============================================
-
-  const heroVisual =
-    $("#heroVisual");
-
-  const musicCircle =
-    $("#musicCircle");
-
-  if (
-    desktopMotionQuery.matches
-  ) {
-    heroVisual
-      ?.addEventListener(
-        "pointermove",
-        event => {
-          if (!musicCircle) {
-            return;
-          }
-
-          const rect =
-            heroVisual
-              .getBoundingClientRect();
-
-          if (
-            !rect.width ||
-            !rect.height
-          ) {
-            return;
-          }
-
-          const x =
-            (
-              event.clientX -
-              rect.left
-            ) /
-            rect.width -
-            0.5;
-
-          const y =
-            (
-              event.clientY -
-              rect.top
-            ) /
-            rect.height -
-            0.5;
-
-          musicCircle
-            .style
-            .transform = `
-              perspective(800px)
-              rotateX(${y * -8}deg)
-              rotateY(${x * 8}deg)
-            `;
-        }
-      );
-
-    heroVisual
-      ?.addEventListener(
-        "pointerleave",
-        () => {
-          if (
-            musicCircle
-          ) {
-            musicCircle
-              .style
-              .transform = "";
-          }
-        }
-      );
-  }
-
-  // ============================================
-  // LIGHTWEIGHT VINTAGE DUST
-  // ============================================
-
-  const dustLayer = $("#dustLayer");
-
-  if (dustLayer && dustLayer.children.length === 0) {
-    const dustCount = desktopMotionQuery.matches ? 12 : 7;
-
-    for (let i = 0; i < dustCount; i++) {
-      const speck = document.createElement("span");
-
-      speck.style.left = `${Math.random() * 100}%`;
-      speck.style.top = `${18 + Math.random() * 82}%`;
-      speck.style.setProperty(
-        "--dust-size",
-        `${1 + Math.random() * 1.8}px`
-      );
-      speck.style.setProperty(
-        "--dust-duration",
-        `${10 + Math.random() * 9}s`
-      );
-      speck.style.setProperty(
-        "--dust-delay",
-        `${-Math.random() * 12}s`
-      );
-      speck.style.setProperty(
-        "--dust-x",
-        `${-30 + Math.random() * 60}px`
-      );
-
-      dustLayer.appendChild(speck);
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement("span");
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${12 + Math.random() * 88}%`;
+      particle.style.setProperty("--particle-size", `${1.6 + Math.random() * 2.2}px`);
+      particle.style.setProperty("--particle-speed", `${9 + Math.random() * 9}s`);
+      particle.style.setProperty("--particle-delay", `${-Math.random() * 12}s`);
+      particle.style.setProperty("--particle-x", `${-38 + Math.random() * 76}px`);
+      particleContainer.appendChild(particle);
     }
   }
 
@@ -2780,6 +2444,7 @@
   document.addEventListener(
     "visibilitychange",
     () => {
+      document.documentElement.classList.toggle("nova-page-hidden", document.hidden);
       if (
         document.hidden
       ) {
@@ -2814,378 +2479,130 @@
       "visible"
     );
 // ============================================
-// SOFT CURSOR GLOW
+// SOFT CURSOR + BACKGROUND PARALLAX
+// Single event-driven RAF. No idle animation loop.
 // ============================================
 
-const cursorGlow =
-    document.getElementById("cursorGlow");
+const cursorGlow = document.getElementById("cursorGlow");
+const touchGlow = document.getElementById("touchGlow");
+const cursorAllowed = window.matchMedia("(hover: hover) and (pointer: fine)");
+const backgroundOrbs = $$(".orb");
+const backgroundRings = $$(".graphic-ring");
 
-const cursorAllowed =
-    window.matchMedia(
-        "(hover: hover) and (pointer: fine)"
-    );
+if (cursorGlow && cursorAllowed.matches) {
+  let pointerX = window.innerWidth / 2;
+  let pointerY = window.innerHeight / 2;
+  let cursorFrame = 0;
 
-if (
-    cursorGlow &&
-    cursorAllowed.matches
-) {
+  window.addEventListener("pointermove", event => {
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    cursorGlow.style.opacity = "1";
 
-    let cursorX = 0;
-    let cursorY = 0;
+    if (cursorFrame) return;
 
-    let currentX = 0;
-    let currentY = 0;
+    cursorFrame = requestAnimationFrame(() => {
+      cursorFrame = 0;
+      cursorGlow.style.transform =
+        `translate3d(${pointerX}px, ${pointerY}px, 0)`;
 
-    let cursorAnimation;
+      const nx = pointerX / window.innerWidth - 0.5;
+      const ny = pointerY / window.innerHeight - 0.5;
 
+      backgroundOrbs.forEach((orb, index) => {
+        const strength = 7 + index * 5;
+        orb.style.setProperty("--px", `${nx * strength}px`);
+        orb.style.setProperty("--py", `${ny * strength}px`);
+      });
 
-    window.addEventListener(
-        "pointermove",
-        event => {
+      backgroundRings.forEach((ring, index) => {
+        const strength = 4 + index * 3;
+        ring.style.setProperty("--rx", `${nx * strength}px`);
+        ring.style.setProperty("--ry", `${ny * strength}px`);
+      });
+    });
+  }, { passive: true });
 
-            cursorX =
-                event.clientX;
+  document.addEventListener("mouseleave", () => {
+    cursorGlow.style.opacity = "0";
+  });
+}
 
-            cursorY =
-                event.clientY;
+if (touchGlow && !cursorAllowed.matches) {
+  window.addEventListener("pointerdown", event => {
+    touchGlow.classList.remove("active");
+    touchGlow.style.transform =
+      `translate3d(${event.clientX}px, ${event.clientY}px, 0) scale(.45)`;
 
-            cursorGlow.style.opacity =
-                "1";
+    requestAnimationFrame(() => {
+      touchGlow.classList.add("active");
+    });
+  }, { passive: true });
+}
 
-        },
-        {
-            passive: true
-        }
-    );
+// ============================================
+// MANDATORY ENTRY SIGN IN
+// ============================================
 
+const novaAuthOverlay = document.getElementById("novaAuthOverlay");
+const novaAuthForm = document.getElementById("novaAuthForm");
+const novaUsername = document.getElementById("novaUsername");
+const novaPassword = document.getElementById("novaPassword");
+const novaAuthMessage = document.getElementById("novaAuthMessage");
 
-    function animateCursor() {
+function unlockNova() {
+  document.body.classList.remove("auth-locked");
+  novaAuthOverlay?.classList.remove("open", "leaving");
+  novaAuthOverlay?.setAttribute("aria-hidden", "true");
+}
 
-        /*
-        Slight delay = soft floating movement
-        */
+function lockNova() {
+  document.body.classList.add("auth-locked");
+  novaAuthOverlay?.classList.add("open");
+  novaAuthOverlay?.classList.remove("leaving");
+  novaAuthOverlay?.setAttribute("aria-hidden", "false");
 
-        currentX +=
-            (cursorX - currentX)
-            * 0.14;
+  setTimeout(() => novaUsername?.focus(), 120);
+}
 
-        currentY +=
-            (cursorY - currentY)
-            * 0.14;
+const savedNovaUser = sessionStorage.getItem("novaUser");
 
+if (savedNovaUser) {
+  unlockNova();
+} else {
+  lockNova();
+}
 
-        cursorGlow.style.transform =
+novaAuthForm?.addEventListener("submit", event => {
+  event.preventDefault();
 
-            `translate3d(
-                ${currentX}px,
-                ${currentY}px,
-                0
-            )`;
+  const username = novaUsername?.value.trim();
+  const password = novaPassword?.value.trim();
 
-
-        cursorAnimation =
-            requestAnimationFrame(
-                animateCursor
-            );
-
+  if (!username || !password) {
+    if (novaAuthMessage) {
+      novaAuthMessage.textContent = "Enter username and password.";
     }
-
-
-    animateCursor();
-
-
-    document.addEventListener(
-        "mouseleave",
-        () => {
-
-            cursorGlow.style.opacity =
-                "0";
-
-        }
-    );
-
-
-    document.addEventListener(
-        "mouseenter",
-        () => {
-
-            cursorGlow.style.opacity =
-                "1";
-
-        }
-    );
-}
-  // ============================================
-// NOVA SIGN IN
-// ============================================
-
-const novaSignInBtn =
-  document.getElementById(
-    "novaSignInBtn"
-  );
-
-const novaAuthOverlay =
-  document.getElementById(
-    "novaAuthOverlay"
-  );
-
-const novaAuthClose =
-  document.getElementById(
-    "novaAuthClose"
-  );
-
-const novaAuthForm =
-  document.getElementById(
-    "novaAuthForm"
-  );
-
-const novaUsername =
-  document.getElementById(
-    "novaUsername"
-  );
-
-const novaPassword =
-  document.getElementById(
-    "novaPassword"
-  );
-
-const novaAuthMessage =
-  document.getElementById(
-    "novaAuthMessage"
-  );
-
-
-function openNovaAuth(){
-
-  novaAuthOverlay
-    ?.classList
-    .add("open");
-
-  novaAuthOverlay
-    ?.setAttribute(
-      "aria-hidden",
-      "false"
-    );
-
-  setTimeout(
-    () =>
-      novaUsername
-        ?.focus(),
-    100
-  );
-
-}
-
-
-function closeNovaAuth(){
-
-  novaAuthOverlay
-    ?.classList
-    .remove("open");
-
-  novaAuthOverlay
-    ?.setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
-}
-
-
-function updateNovaUser(){
-
-  const username =
-    sessionStorage
-      .getItem(
-        "novaUser"
-      );
-
-
-  if(
-    username &&
-    novaSignInBtn
-  ){
-
-    novaSignInBtn
-      .textContent =
-      `Hi, ${username}`;
-
-    novaSignInBtn
-      .classList
-      .add(
-        "logged-in"
-      );
-
+    return;
   }
 
-}
+  // Prototype session only. Password is intentionally never stored.
+  sessionStorage.setItem("novaUser", username);
 
+  if (novaAuthMessage) {
+    novaAuthMessage.textContent = `Welcome, ${username}!`;
+  }
 
-novaSignInBtn
-  ?.addEventListener(
-    "click",
-    () => {
+  if (novaPassword) {
+    novaPassword.value = "";
+  }
 
-      const currentUser =
-        sessionStorage
-          .getItem(
-            "novaUser"
-          );
+  novaAuthOverlay?.classList.add("leaving");
 
+  window.setTimeout(() => {
+    unlockNova();
+    if (novaAuthMessage) novaAuthMessage.textContent = "";
+  }, 430);
+});
 
-      if(currentUser){
-
-        const logout =
-          confirm(
-            `Sign out ${currentUser}?`
-          );
-
-
-        if(logout){
-
-          sessionStorage
-            .removeItem(
-              "novaUser"
-            );
-
-          novaSignInBtn
-            .textContent =
-            "Sign In";
-
-          novaSignInBtn
-            .classList
-            .remove(
-              "logged-in"
-            );
-
-        }
-
-        return;
-
-      }
-
-
-      openNovaAuth();
-
-    }
-  );
-
-
-novaAuthClose
-  ?.addEventListener(
-    "click",
-    closeNovaAuth
-  );
-
-
-novaAuthOverlay
-  ?.addEventListener(
-    "click",
-    event => {
-
-      if(
-        event.target ===
-        novaAuthOverlay
-      ){
-
-        closeNovaAuth();
-
-      }
-
-    }
-  );
-
-
-novaAuthForm
-  ?.addEventListener(
-    "submit",
-    event => {
-
-      event.preventDefault();
-
-
-      const username =
-        novaUsername
-          ?.value
-          .trim();
-
-      const password =
-        novaPassword
-          ?.value
-          .trim();
-
-
-      if(
-        !username ||
-        !password
-      ){
-
-        novaAuthMessage
-          .textContent =
-          "Enter username and password.";
-
-        return;
-
-      }
-
-
-      /*
-        Prototype login.
-
-        Password is NOT stored.
-      */
-
-      sessionStorage
-        .setItem(
-          "novaUser",
-          username
-        );
-
-
-      novaAuthMessage
-        .textContent =
-        `Welcome, ${username}!`;
-
-
-      novaSignInBtn
-        .textContent =
-        `Hi, ${username}`;
-
-      novaSignInBtn
-        .classList
-        .add(
-          "logged-in"
-        );
-
-
-      novaPassword.value =
-        "";
-
-
-      setTimeout(
-        closeNovaAuth,
-        600
-      );
-
-    }
-  );
-
-
-document
-  .addEventListener(
-    "keydown",
-    event => {
-
-      if(
-        event.key ===
-        "Escape"
-      ){
-
-        closeNovaAuth();
-
-      }
-
-    }
-  );
-updateNovaUser();
 })();
