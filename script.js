@@ -2914,6 +2914,278 @@ if (
 
         }
     );
+}
+  // ============================================
+// NOVA SIGN IN
+// ============================================
+
+const novaSignInBtn =
+  document.getElementById(
+    "novaSignInBtn"
+  );
+
+const novaAuthOverlay =
+  document.getElementById(
+    "novaAuthOverlay"
+  );
+
+const novaAuthClose =
+  document.getElementById(
+    "novaAuthClose"
+  );
+
+const novaAuthForm =
+  document.getElementById(
+    "novaAuthForm"
+  );
+
+const novaUsername =
+  document.getElementById(
+    "novaUsername"
+  );
+
+const novaPassword =
+  document.getElementById(
+    "novaPassword"
+  );
+
+const novaAuthMessage =
+  document.getElementById(
+    "novaAuthMessage"
+  );
+
+
+function openNovaAuth(){
+
+  novaAuthOverlay
+    ?.classList
+    .add("open");
+
+  novaAuthOverlay
+    ?.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+  setTimeout(
+    () =>
+      novaUsername
+        ?.focus(),
+    100
+  );
 
 }
+
+
+function closeNovaAuth(){
+
+  novaAuthOverlay
+    ?.classList
+    .remove("open");
+
+  novaAuthOverlay
+    ?.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+}
+
+
+function updateNovaUser(){
+
+  const username =
+    sessionStorage
+      .getItem(
+        "novaUser"
+      );
+
+
+  if(
+    username &&
+    novaSignInBtn
+  ){
+
+    novaSignInBtn
+      .textContent =
+      `Hi, ${username}`;
+
+    novaSignInBtn
+      .classList
+      .add(
+        "logged-in"
+      );
+
+  }
+
+}
+
+
+novaSignInBtn
+  ?.addEventListener(
+    "click",
+    () => {
+
+      const currentUser =
+        sessionStorage
+          .getItem(
+            "novaUser"
+          );
+
+
+      if(currentUser){
+
+        const logout =
+          confirm(
+            `Sign out ${currentUser}?`
+          );
+
+
+        if(logout){
+
+          sessionStorage
+            .removeItem(
+              "novaUser"
+            );
+
+          novaSignInBtn
+            .textContent =
+            "Sign In";
+
+          novaSignInBtn
+            .classList
+            .remove(
+              "logged-in"
+            );
+
+        }
+
+        return;
+
+      }
+
+
+      openNovaAuth();
+
+    }
+  );
+
+
+novaAuthClose
+  ?.addEventListener(
+    "click",
+    closeNovaAuth
+  );
+
+
+novaAuthOverlay
+  ?.addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target ===
+        novaAuthOverlay
+      ){
+
+        closeNovaAuth();
+
+      }
+
+    }
+  );
+
+
+novaAuthForm
+  ?.addEventListener(
+    "submit",
+    event => {
+
+      event.preventDefault();
+
+
+      const username =
+        novaUsername
+          ?.value
+          .trim();
+
+      const password =
+        novaPassword
+          ?.value
+          .trim();
+
+
+      if(
+        !username ||
+        !password
+      ){
+
+        novaAuthMessage
+          .textContent =
+          "Enter username and password.";
+
+        return;
+
+      }
+
+
+      /*
+        Prototype login.
+
+        Password is NOT stored.
+      */
+
+      sessionStorage
+        .setItem(
+          "novaUser",
+          username
+        );
+
+
+      novaAuthMessage
+        .textContent =
+        `Welcome, ${username}!`;
+
+
+      novaSignInBtn
+        .textContent =
+        `Hi, ${username}`;
+
+      novaSignInBtn
+        .classList
+        .add(
+          "logged-in"
+        );
+
+
+      novaPassword.value =
+        "";
+
+
+      setTimeout(
+        closeNovaAuth,
+        600
+      );
+
+    }
+  );
+
+
+document
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key ===
+        "Escape"
+      ){
+
+        closeNovaAuth();
+
+      }
+
+    }
+  );
+updateNovaUser();
 })();
