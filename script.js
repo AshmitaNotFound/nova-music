@@ -91,12 +91,12 @@ const searchClose =
       cover: "images/cover1.jpg",
       tracks: [
         { title: "Pyaar hota kahi baar hai", artist: "Arijit Singh", audio: "songs/Desi Heats-01.mp3" },
-        { title: "Afterglow", artist: "Nova", audio: "songs/Desi Heats-02.mp3" },
-        { title: "Abhi Toh Party", artist: "Badsha", audio: "songs/Desi Heats-03.mp3" },
-        { title: "Saree ka Falsa", artist: "Antara mitra", audio: "songs/Desi Heats-04.mp3" },
-        { title: "Kala Chasma", artist: "Amar arshi", audio: "songs/Desi Heats-05.mp3" },
-        { title: "Desi Girl", artist: "Vishal", audio: "songs/Desi Heats-06.mp3" },
-        { title: "No LOve", artist: "Garry", audio: "songs/Desi Heats-07.mp3" }
+        { title: "Afterglow", artist: "Nova", audio: "songs1/Desi Heats-02.mp3" },
+        { title: "Abhi Toh Party", artist: "Badsha", audio: "songs1/Desi Heats-03.mp3" },
+        { title: "Saree ka Falsa", artist: "Antara mitra", audio: "songs1/Desi Heats-04.mp3" },
+        { title: "Kala Chasma", artist: "Amar arshi", audio: "songs1/Desi Heats-05.mp3" },
+        { title: "Desi Girl", artist: "Vishal", audio: "songs1/Desi Heats-06.mp3" },
+        { title: "No LOve", artist: "Garry", audio: "songs1/Desi Heats-07.mp3" }
       ]
     },
     {
@@ -104,13 +104,13 @@ const searchClose =
       artist: "Lunar",
       cover: "images/cover2.jpg",
       tracks: [
-        { title: "Midnight City", artist: "The Weeknd", audio: "songs/song2.mp3" },
-        { title: "Normal", artist: "BTS", audio: "songs/midnight-02.mp3" },
-        { title: "Party All Night", artist: "HONEY SINGH", audio: "songs/midnight-03.mp3" },
-        { title: "Party All Night", artist: "HONEY SINGH", audio: "songs/midnight-04.mp3" },
-        { title: "Streetlights", artist: "Lunar", audio: "songs/midnight-05.mp3" },
-        { title: "Violet Roads", artist: "Lunar", audio: "songs/midnight-06.mp3" },
-        { title: "City Sleeps", artist: "Lunar", audio: "songs/midnight-07.mp3" }
+        { title: "Midnight City", artist: "The Weeknd", audio: "songs2/song2.mp3" },
+        { title: "Normal", artist: "BTS", audio: "songs2/midnight-02.mp3" },
+        { title: "Party All Night", artist: "HONEY SINGH", audio: "songs2/midnight-03.mp3" },
+        { title: "Party All Night", artist: "HONEY SINGH", audio: "songs2/midnight-04.mp3" },
+        { title: "Streetlights", artist: "Lunar", audio: "songs2/midnight-05.mp3" },
+        { title: "Violet Roads", artist: "Lunar", audio: "songs2/midnight-06.mp3" },
+        { title: "City Sleeps", artist: "Lunar", audio: "songs2/midnight-07.mp3" }
       ]
     },
     {
