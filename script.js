@@ -93,10 +93,10 @@ const searchClose =
         { title: "Pyaar hota kahi baar hai", artist: "Arijit Singh", audio: "songs/Desi Heats-01.mp3" },
         { title: "Afterglow", artist: "Nova", audio: "songs1/Desi Heats-02.mp3" },
         { title: "Abhi Toh Party", artist: "Badsha", audio: "songs1/Desi Heats-03.mp3" },
-        { title: "Saree ka Falsa", artist: "Antara mitra", audio: "songs1/Desi Heats-04.mp3" },
-        { title: "Kala Chasma", artist: "Amar arshi", audio: "songs1/Desi Heats-05.mp3" },
-        { title: "Desi Girl", artist: "Vishal", audio: "songs1/Desi Heats-06.mp3" },
-        { title: "No LOve", artist: "Garry", audio: "songs1/Desi Heats-07.mp3" }
+        { title: "Saree ka Falsa", artist: "Antara mitra", audio: "songs1.1/Desi Heats-04.mp3" },
+        { title: "Kala Chasma", artist: "Amar arshi", audio: "songs1.1/Desi Heats-05.mp3" },
+        { title: "Desi Girl", artist: "Vishal", audio: "songs1.1/Desi Heats-06.mp3" },
+        { title: "No LOve", artist: "Garry", audio: "songs1.1/Desi Heats-07.mp3" }
       ]
     },
     {
