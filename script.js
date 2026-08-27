@@ -2813,5 +2813,107 @@
     .add(
       "visible"
     );
+// ============================================
+// SOFT CURSOR GLOW
+// ============================================
 
+const cursorGlow =
+    document.getElementById("cursorGlow");
+
+const cursorAllowed =
+    window.matchMedia(
+        "(hover: hover) and (pointer: fine)"
+    );
+
+if (
+    cursorGlow &&
+    cursorAllowed.matches
+) {
+
+    let cursorX = 0;
+    let cursorY = 0;
+
+    let currentX = 0;
+    let currentY = 0;
+
+    let cursorAnimation;
+
+
+    window.addEventListener(
+        "pointermove",
+        event => {
+
+            cursorX =
+                event.clientX;
+
+            cursorY =
+                event.clientY;
+
+            cursorGlow.style.opacity =
+                "1";
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    function animateCursor() {
+
+        /*
+        Slight delay = soft floating movement
+        */
+
+        currentX +=
+            (cursorX - currentX)
+            * 0.14;
+
+        currentY +=
+            (cursorY - currentY)
+            * 0.14;
+
+
+        cursorGlow.style.transform =
+
+            `translate3d(
+                ${currentX}px,
+                ${currentY}px,
+                0
+            )`;
+
+
+        cursorAnimation =
+            requestAnimationFrame(
+                animateCursor
+            );
+
+    }
+
+
+    animateCursor();
+
+
+    document.addEventListener(
+        "mouseleave",
+        () => {
+
+            cursorGlow.style.opacity =
+                "0";
+
+        }
+    );
+
+
+    document.addEventListener(
+        "mouseenter",
+        () => {
+
+            cursorGlow.style.opacity =
+                "1";
+
+        }
+    );
+
+}
 })();
