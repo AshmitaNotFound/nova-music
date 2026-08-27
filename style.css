@@ -4,18 +4,378 @@ body{font-family:Arial,Helvetica,sans-serif;background:#080812;color:#fff;overfl
 a{color:inherit}
 button,input,a{font:inherit}
 
-.background{position:fixed;inset:0;overflow:hidden;z-index:-3;background:radial-gradient(circle at 15% 10%,#27145b 0,transparent 32%),radial-gradient(circle at 85% 72%,#072d4a 0,transparent 36%),#080812}
-.orb{position:absolute;border-radius:50%;filter:blur(85px);opacity:.5;animation:orbFloat 10s ease-in-out infinite alternate;transform:translate(var(--px,0),var(--py,0))}
-.orb1{width:360px;height:360px;background:#7c3cff;top:8%;left:-110px}
-.orb2{width:320px;height:320px;background:#00d9ff;right:-100px;top:38%;animation-delay:2s}
-.orb3{width:280px;height:280px;background:#ff2ca8;bottom:-60px;left:42%;animation-delay:4s}
-@keyframes orbFloat{to{margin-top:-55px;margin-left:65px;scale:1.12}}
+/* =====================================
+   NOVA VINTAGE ANALOG BACKGROUND
+   Lightweight: gradients + transform/opacity only
+===================================== */
 
-.stars{position:absolute;inset:0}
-.stars span{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:.25;animation:twinkle 4s infinite ease-in-out}
-@keyframes twinkle{50%{opacity:.9;transform:scale(2)}}
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    overflow: hidden;
+    contain: paint;
+    isolation: isolate;
+    background:
+        radial-gradient(circle at 14% 18%, rgba(119, 70, 153, 0.22), transparent 28%),
+        radial-gradient(circle at 82% 72%, rgba(46, 111, 119, 0.16), transparent 30%),
+        radial-gradient(circle at 58% 22%, rgba(216, 137, 77, 0.08), transparent 24%),
+        linear-gradient(145deg, #09080a 0%, #100d12 45%, #090a0c 100%);
+}
 
-.cursor-glow{position:fixed;left:-130px;top:-130px;width:260px;height:260px;border-radius:50%;pointer-events:none;z-index:20;background:radial-gradient(circle,rgba(145,91,255,.14),transparent 68%);transform:translate3d(-500px,-500px,0);transition:opacity .25s}
+.background::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at center, transparent 38%, rgba(0, 0, 0, 0.56) 100%);
+    z-index: 10;
+}
+
+.paper-texture {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.56;
+    background-image:
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(90deg, rgba(231,203,169,0.012) 0 1px, transparent 1px 5px),
+        radial-gradient(circle, rgba(255,240,218,0.055) 0 0.8px, transparent 1.2px);
+    background-size: auto, auto, 17px 17px;
+    mix-blend-mode: soft-light;
+    z-index: 7;
+}
+
+.light-leak {
+    position: absolute;
+    width: 52vmax;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+    opacity: 0.22;
+}
+
+.light-leak-one {
+    top: -26vmax;
+    left: -20vmax;
+    background: radial-gradient(circle at 62% 62%, rgba(222,84,153,0.58) 0%, rgba(139,92,255,0.22) 31%, transparent 67%);
+    animation: vintageLeakOne 18s ease-in-out infinite alternate;
+}
+
+.light-leak-two {
+    right: -27vmax;
+    bottom: -29vmax;
+    background: radial-gradient(circle at 37% 36%, rgba(233,159,76,0.42) 0%, rgba(39,116,122,0.18) 32%, transparent 67%);
+    animation: vintageLeakTwo 22s ease-in-out infinite alternate;
+}
+
+@keyframes vintageLeakOne {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(8vw, 5vh, 0) scale(1.08); }
+}
+
+@keyframes vintageLeakTwo {
+    from { transform: translate3d(0, 0, 0) scale(1.04); }
+    to { transform: translate3d(-7vw, -4vh, 0) scale(0.96); }
+}
+
+.vinyl-ghost {
+    position: absolute;
+    width: 420px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.105;
+    will-change: transform;
+    background:
+        radial-gradient(circle at center, rgba(238,216,191,0.24) 0 7%, transparent 7.5% 15%, rgba(255,255,255,0.045) 15.5% 16.5%, transparent 17%),
+        repeating-radial-gradient(circle at center, rgba(235,225,210,0.12) 0 1px, transparent 1px 7px),
+        radial-gradient(circle at 35% 28%, rgba(255,255,255,0.09), transparent 28%),
+        #070708;
+    border: 1px solid rgba(232,214,190,0.11);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.025) inset;
+}
+
+.vinyl-ghost::before {
+    content: "";
+    position: absolute;
+    width: 13%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, #171419 0 20%, #c88e6e 22% 58%, #2b2028 60% 100%);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.12);
+}
+
+.vinyl-ghost-one {
+    left: -165px;
+    top: 19%;
+    animation: vinylDriftOne 30s linear infinite;
+}
+
+.vinyl-ghost-two {
+    width: 310px;
+    right: -120px;
+    bottom: 12%;
+    opacity: 0.075;
+    animation: vinylDriftTwo 36s linear infinite reverse;
+}
+
+.vinyl-label {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%) rotate(-16deg);
+    color: rgba(20,15,19,0.84);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+@keyframes vinylDriftOne {
+    from { transform: rotate(0deg) translate3d(0,0,0); }
+    to { transform: rotate(360deg) translate3d(0,0,0); }
+}
+
+@keyframes vinylDriftTwo {
+    from { transform: rotate(0deg) translate3d(0,0,0); }
+    to { transform: rotate(360deg) translate3d(0,0,0); }
+}
+
+.retro-wave {
+    position: absolute;
+    width: min(680px, 72vw);
+    height: 120px;
+    overflow: visible;
+    pointer-events: none;
+    opacity: 0.12;
+    will-change: transform;
+}
+
+.retro-wave path {
+    fill: none;
+    stroke: rgba(230, 203, 173, 0.55);
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke;
+}
+
+.retro-wave-one {
+    right: 8%;
+    top: 28%;
+    animation: waveFloatOne 16s ease-in-out infinite alternate;
+}
+
+.retro-wave-two {
+    left: 12%;
+    bottom: 24%;
+    opacity: 0.07;
+    transform: scaleX(-1);
+    animation: waveFloatTwo 20s ease-in-out infinite alternate;
+}
+
+@keyframes waveFloatOne {
+    from { transform: translate3d(0, -8px, 0); }
+    to { transform: translate3d(-24px, 12px, 0); }
+}
+
+@keyframes waveFloatTwo {
+    from { transform: translate3d(0, 10px, 0) scaleX(-1); }
+    to { transform: translate3d(20px, -8px, 0) scaleX(-1); }
+}
+
+.dust-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 6;
+}
+
+.dust-layer span {
+    position: absolute;
+    width: var(--dust-size, 2px);
+    height: var(--dust-size, 2px);
+    border-radius: 50%;
+    background: rgba(237, 218, 192, 0.68);
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: dustDrift var(--dust-duration, 13s) linear var(--dust-delay, 0s) infinite;
+}
+
+@keyframes dustDrift {
+    0% { transform: translate3d(0, 24px, 0); opacity: 0; }
+    16% { opacity: 0.26; }
+    72% { opacity: 0.12; }
+    100% { transform: translate3d(var(--dust-x, 26px), -170px, 0); opacity: 0; }
+}
+
+.retro-stamp {
+    position: absolute;
+    pointer-events: none;
+    color: rgba(235, 215, 188, 0.11);
+    border: 1px solid rgba(235, 215, 188, 0.09);
+    border-radius: 999px;
+    padding: 8px 12px 7px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transform: rotate(-7deg);
+}
+
+.stamp-one {
+    left: 8%;
+    bottom: 18%;
+    animation: stampFloat 12s ease-in-out infinite alternate;
+}
+
+.stamp-two {
+    right: 12%;
+    top: 18%;
+    transform: rotate(9deg);
+    animation: stampFloat 15s ease-in-out -4s infinite alternate;
+}
+
+@keyframes stampFloat {
+    from { translate: 0 0; }
+    to { translate: 0 -10px; }
+}
+
+/* =====================================
+   VINYL CURSOR + TOUCH GRAPHIC
+===================================== */
+
+.cursor-vinyl {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    width: 34px;
+    height: 34px;
+    display: none;
+    pointer-events: none;
+    transform: translate3d(-100px, -100px, 0);
+    will-change: transform;
+    transition: opacity 0.16s ease;
+}
+
+.cursor-disc,
+.touch-vinyl > span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at center, #f2c184 0 10%, #8e405e 11% 24%, transparent 25% 29%, rgba(255,255,255,0.09) 30% 31%, transparent 32%),
+        repeating-radial-gradient(circle at center, #080809 0 2px, #161318 3px 4px, #09090a 5px 7px);
+    border: 1px solid rgba(255, 229, 195, 0.42);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.28), 0 0 15px rgba(222,84,153,0.16);
+}
+
+.cursor-disc {
+    animation: cursorDiscSpin 3.6s linear infinite;
+}
+
+.cursor-disc::after,
+.touch-vinyl > span::after {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.cursor-disc i,
+.touch-vinyl i {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #f4dfc3;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes cursorDiscSpin {
+    to { transform: rotate(360deg); }
+}
+
+.cursor-vinyl.pressed .cursor-disc {
+    scale: 0.78;
+}
+
+.cursor-vinyl.hidden,
+.cursor-vinyl.offscreen {
+    opacity: 0;
+}
+
+.touch-vinyl {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    width: 44px;
+    height: 44px;
+    display: none;
+    pointer-events: none;
+    transform: translate3d(-100px, -100px, 0);
+    will-change: transform;
+}
+
+.touch-vinyl > span {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.touch-vinyl.active > span {
+    animation: touchVinylPulse 0.62s cubic-bezier(.2,.72,.26,1) both;
+}
+
+@keyframes touchVinylPulse {
+    0% { opacity: 0; transform: scale(0.45) rotate(0deg); }
+    18% { opacity: 0.9; }
+    65% { opacity: 0.56; }
+    100% { opacity: 0; transform: scale(1.35) rotate(105deg); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .cursor-vinyl { display: block; }
+    html.nova-custom-cursor body,
+    html.nova-custom-cursor a,
+    html.nova-custom-cursor button,
+    html.nova-custom-cursor input[type="range"] {
+        cursor: none;
+    }
+}
+
+@media (hover: none), (pointer: coarse) {
+    .touch-vinyl { display: block; }
+}
+
+@media (max-width: 650px) {
+    .light-leak { width: 78vmax; opacity: 0.18; }
+    .vinyl-ghost-one { width: 285px; left: -135px; top: 23%; opacity: 0.085; }
+    .vinyl-ghost-two { width: 220px; right: -105px; bottom: 16%; opacity: 0.06; }
+    .retro-wave { width: 92vw; height: 90px; opacity: 0.075; }
+    .retro-wave-one { right: -18%; top: 34%; }
+    .retro-wave-two { left: -18%; bottom: 27%; }
+    .retro-stamp { font-size: 8px; letter-spacing: 2px; padding: 6px 9px; }
+    .stamp-two { right: 5%; top: 16%; }
+}
+
+body[data-theme="paradise"] .dust-layer span {
+    background: rgba(255, 205, 118, 0.7);
+}
+
+body[data-theme="paradise"] .vinyl-ghost::before {
+    background: radial-gradient(circle, #281713 0 20%, #ffc56e 22% 58%, #7d3d2e 60% 100%);
+}
+
 
 .site-header{position:sticky;top:0;z-index:15;width:min(92%,1200px);height:80px;margin:auto;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,18,.58);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06)}
 .logo{text-decoration:none;font-size:25px;font-weight:800;letter-spacing:3px}
@@ -146,111 +506,11 @@ input[type=range]{accent-color:#8b5cff;cursor:pointer}
 .section-reveal{opacity:1;transform:none}.section-reveal.animate-in{animation:revealIn .75s cubic-bezier(.2,.75,.25,1) both}@keyframes revealIn{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
 footer{text-align:center;padding:42px;color:#60606c;font-size:12px}
 
-@media(max-width:900px){.hero{flex-direction:column;text-align:center;padding:80px 0}.hero-text{display:flex;flex-direction:column;align-items:center}.hero-visual{width:330px;height:330px}.music-circle{width:280px;height:280px}.orbit-one{width:320px;height:320px}.orbit-two{width:330px;height:260px}.song-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.section-heading{align-items:start;flex-direction:column}.cursor-glow{display:none}}
+@media(max-width:900px){.hero{flex-direction:column;text-align:center;padding:80px 0}.hero-text{display:flex;flex-direction:column;align-items:center}.hero-visual{width:330px;height:330px}.music-circle{width:280px;height:280px}.orbit-one{width:320px;height:320px}.orbit-two{width:330px;height:260px}.song-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.section-heading{align-items:start;flex-direction:column}}
 @media(max-width:650px){.site-header{height:70px}.logo{font-size:21px}nav{gap:15px}.nav-link{font-size:12px}.hero h1{font-size:62px;letter-spacing:-3px}.hero-visual{scale:.86}.song-grid,.team-grid{grid-template-columns:1fr}.songs-section,.player-section,.credits-section{margin:80px auto}.player{padding:35px 18px}.album-wrap{width:200px;height:200px}.card-play{opacity:1;transform:none}.social-btn{flex:1}.marquee{font-size:10px}}
 @media(max-width:460px){nav .nav-link:nth-child(2),nav .nav-link:nth-child(3){display:none}.hero{min-height:auto;padding-top:55px}.hero h1{font-size:52px}.hero-visual{width:290px;height:290px}.music-circle{width:245px;height:245px}.section-heading h2,.credits-heading h2{font-size:38px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}.cursor-glow{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
 
-/* =====================================
-   CLEAN ADVANCED BACKGROUND
-   Keeps the original orb + hero-note system.
-   Adds only aurora, particles and hero glow.
-===================================== */
-
-/* Aurora layers live inside .background */
-.aurora {
-    position: absolute;
-    width: 650px;
-    height: 650px;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.22;
-    pointer-events: none;
-    animation: auroraMove 16s ease-in-out infinite alternate;
-}
-
-.aurora1 {
-    top: -260px;
-    left: 8%;
-    background: linear-gradient(120deg, #8b5cff, #00d9ff, #ff4fc3);
-}
-
-.aurora2 {
-    right: 4%;
-    bottom: -300px;
-    background: linear-gradient(120deg, #00d9ff, #713cff, #ff2ca8);
-    animation-delay: -7s;
-}
-
-@keyframes auroraMove {
-    0% {
-        transform: translate3d(-70px, 0, 0) scale(1) rotate(0deg);
-    }
-    50% {
-        transform: translate3d(110px, 90px, 0) scale(1.18) rotate(18deg);
-    }
-    100% {
-        transform: translate3d(-10px, 170px, 0) scale(0.94) rotate(-12deg);
-    }
-}
-
-/* Lightweight floating particles */
-.particles {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.particles span {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    opacity: 0;
-    animation: particleFloat linear infinite;
-}
-
-@keyframes particleFloat {
-    0% {
-        transform: translate3d(0, 24px, 0) scale(0.4);
-        opacity: 0;
-    }
-    20% {
-        opacity: 0.38;
-    }
-    70% {
-        opacity: 0.18;
-    }
-    100% {
-        transform: translate3d(0, -260px, 0) scale(1.35);
-        opacity: 0;
-    }
-}
-
-/* Extra depth behind the hero music circle */
-.music-circle::before {
-    content: "";
-    position: absolute;
-    inset: -42px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(139, 92, 255, 0.24), transparent 70%);
-    animation: heroGlow 3.4s ease-in-out infinite alternate;
-    z-index: -1;
-    pointer-events: none;
-}
-
-@keyframes heroGlow {
-    from {
-        transform: scale(0.92);
-        opacity: 0.42;
-    }
-    to {
-        transform: scale(1.13);
-        opacity: 0.86;
-    }
-}
 /* =====================================
    PREMIUM NOVA HEADER
 ===================================== */
@@ -1275,7 +1535,8 @@ main {
 /* Smooth theme change */
 
 .background,
-.aurora,
+.light-leak,
+.vinyl-ghost,
 .player-glow,
 .play-button,
 .visualizer i,
@@ -1318,38 +1579,6 @@ body[data-theme="paradise"] .background {
         ),
 
         #160e0b;
-}
-
-
-/* =====================================
-   GOLDEN AURORA
-===================================== */
-
-body[data-theme="paradise"] .aurora1 {
-
-    background:
-        linear-gradient(
-            120deg,
-            #ffb347,
-            #ffd166,
-            #ff8a5b
-        );
-
-    opacity: 0.28;
-}
-
-
-body[data-theme="paradise"] .aurora2 {
-
-    background:
-        linear-gradient(
-            120deg,
-            #ff7a45,
-            #e89078,
-            #ffd36a
-        );
-
-    opacity: 0.24;
 }
 
 
@@ -1410,31 +1639,6 @@ body[data-theme="paradise"] .background::after {
         transform: scale(1.08);
         opacity: 0.82;
     }
-}
-
-
-/* =====================================
-   GOLDEN PARTICLES
-===================================== */
-
-body[data-theme="paradise"] .particles span {
-
-    background:
-        rgba(
-            255,
-            210,
-            110,
-            0.95
-        );
-
-    box-shadow:
-        0 0 8px
-        rgba(
-            255,
-            190,
-            80,
-            0.6
-        );
 }
 
 
@@ -4271,36 +4475,4 @@ body[data-theme="paradise"]
             none;
 
     }
-}
-@media (max-width: 900px) {
-    .orb { filter: blur(30px); }
-  .orb1, .orb2, .orb3 { width: 160px; height: 160px; animation: none; }
-  .aurora { width: 260px; height: 260px; filter: blur(50px); animation: none; }
-  .site-header,
-  .music-search,
-  .queue-panel,
-  .mini-player,
-  .liked-panel,
-  .album-browser,
-  .player,
-  .song-card,
-  .team-card {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background-color: rgba(10, 10, 20, 0.92); /* compensate for lost blur */
-  }
-}\n\n/* =========================================================\n   NOVA MOBILE PERFORMANCE OVERRIDES\n   Desktop keeps the original visual system. Phones/tablets\n   get a lighter, touch-friendly version of the same design.\n========================================================= */\n\nhtml, body {\n    width: 100%;\n    max-width: 100%;\n}\n\nimg {\n    max-width: 100%;\n}\n\n@media (max-width: 900px) {\n    html {\n        scroll-padding-top: 88px;\n    }\n\n    body {\n        overflow-x: hidden;\n        -webkit-text-size-adjust: 100%;\n        text-size-adjust: 100%;\n    }\n\n    .background {\n        contain: paint;\n    }\n\n    .cursor-glow {\n        display: none !important;\n    }\n\n    .orb {\n        filter: blur(30px);\n        animation: none !important;\n        transform: none !important;\n    }\n\n    .orb1, .orb2, .orb3 {\n        width: 160px;\n        height: 160px;\n    }\n\n    .aurora {\n        width: 260px;\n        height: 260px;\n        filter: blur(48px);\n        animation: none !important;\n        opacity: .16;\n    }\n\n    .music-circle,\n    .orbit,\n    .floating-note,\n    .photo-ring {\n        will-change: auto;\n    }\n\n    .song-card,\n    .team-card,\n    .magnetic-btn,\n    .magnetic-social,\n    .music-circle {\n        transform: none !important;\n        transform-style: flat;\n    }\n\n    .song-card:hover .cover img,\n    .team-card:hover,\n    .controls button:hover,\n    .social-btn:hover {\n        transform: none;\n    }\n\n    .cover-shine {\n        display: none;\n    }\n\n    .site-header,\n    .music-search,\n    .queue-panel,\n    .mini-player,\n    .liked-panel,\n    .album-browser,\n    .player,\n    .song-card,\n    .team-card {\n        backdrop-filter: none !important;\n        -webkit-backdrop-filter: none !important;\n    }\n\n    .site-header {\n        width: min(94%, 760px);\n    }\n\n    .hero {\n        width: min(92%, 760px);\n        min-height: auto;\n        padding: 110px 0 50px;\n        gap: 34px;\n    }\n\n    .hero-copy {\n        max-width: 560px;\n    }\n\n    .songs-section,\n    .album-tracks-section,\n    .liked-section,\n    .player-section,\n    .credits-section {\n        content-visibility: auto;\n        contain-intrinsic-size: 1px 720px;\n    }\n\n    .card-play,\n    .track-like,\n    .liked-remove,\n    .mini-icon-btn,\n    .queue-close,\n    .main-queue-btn,\n    .search-toggle,\n    .search-close,\n    .controls button {\n        min-width: 44px;\n        min-height: 44px;\n        touch-action: manipulation;\n    }\n}\n\n@media (max-width: 650px) {\n    .site-header {\n        top: 8px;\n        width: calc(100% - 16px);\n        min-height: 62px;\n        height: auto;\n        padding: 8px 10px;\n        gap: 8px;\n    }\n\n    .header-right {\n        min-width: 0;\n        gap: 5px;\n    }\n\n    .site-header nav {\n        min-width: 0;\n        gap: 1px;\n    }\n\n    .site-header .nav-link {\n        padding: 8px 7px;\n        font-size: 10px;\n        white-space: nowrap;\n    }\n\n    .logo {\n        min-width: 0;\n    }\n\n    .logo-name {\n        font-size: 17px;\n        letter-spacing: 2px;\n    }\n\n    .hero {\n        width: 92%;\n        padding: 100px 0 38px;\n        gap: 22px;\n    }\n\n    .hero h1 {\n        font-size: clamp(42px, 14vw, 58px);\n        line-height: .96;\n        letter-spacing: -2.5px;\n    }\n\n    .hero-copy {\n        margin-top: 20px;\n        font-size: 15px;\n        line-height: 1.6;\n    }\n\n    .start-btn {\n        min-height: 48px;\n        padding: 13px 22px;\n    }\n\n    .hero-visual {\n        width: min(82vw, 300px);\n        height: min(82vw, 300px);\n        scale: 1;\n    }\n\n    .music-circle {\n        width: min(70vw, 250px);\n        height: min(70vw, 250px);\n        animation-duration: 5s;\n        box-shadow: 0 0 34px rgba(109,65,255,.28), inset 0 0 30px rgba(0,213,255,.06);\n    }\n\n    .music-circle::before {\n        display: none;\n    }\n\n    .orbit-one {\n        width: min(78vw, 280px);\n        height: min(78vw, 280px);\n    }\n\n    .orbit-two {\n        width: min(82vw, 295px);\n        height: min(64vw, 230px);\n    }\n\n    .bars {\n        height: 96px;\n        gap: 6px;\n    }\n\n    .bars span {\n        width: 6px;\n    }\n\n    .marquee {\n        padding: 13px 0;\n        letter-spacing: 3px;\n    }\n\n    .marquee-track {\n        animation-duration: 26s;\n    }\n\n    .songs-section .section-heading,\n    .album-tracks-section,\n    .liked-section,\n    .player-section,\n    .credits-section {\n        width: 92%;\n    }\n\n    .songs-section,\n    .player-section,\n    .credits-section,\n    .liked-section {\n        margin-top: 64px;\n        margin-bottom: 64px;\n    }\n\n    .section-heading {\n        gap: 12px;\n        margin-bottom: 24px;\n    }\n\n    .section-heading h2,\n    .credits-heading h2 {\n        font-size: clamp(32px, 10vw, 42px);\n    }\n\n    .song-grid {\n        gap: 14px;\n        padding: 4px 8vw 18px;\n        scroll-padding-inline: 8vw;\n        overscroll-behavior-x: contain;\n    }\n\n    .song-card {\n        flex: 0 0 min(82vw, 320px);\n        padding: 12px;\n    }\n\n    .card-play {\n        opacity: 1;\n        transform: none;\n    }\n\n    .album-browser {\n        padding: 18px 14px;\n        border-radius: 22px;\n    }\n\n    .album-browser-head {\n        gap: 14px;\n    }\n\n    .album-track {\n        min-height: 58px;\n    }\n\n    .player {\n        padding: 28px 14px;\n        border-radius: 24px;\n    }\n\n    .player-glow {\n        width: 220px;\n        height: 220px;\n        filter: blur(42px);\n        opacity: .7;\n    }\n\n    .album-wrap {\n        width: min(54vw, 190px);\n        height: min(54vw, 190px);\n    }\n\n    .song-info h2 {\n        font-size: clamp(24px, 8vw, 30px);\n    }\n\n    .progress-area {\n        gap: 8px;\n    }\n\n    .controls {\n        gap: 18px;\n    }\n\n    .play-button {\n        width: 64px;\n        height: 64px;\n    }\n\n    .volume-area input {\n        width: min(42vw, 135px);\n    }\n\n    .team-card {\n        padding: 26px 18px;\n    }\n\n    .music-search {\n        top: 82px;\n        left: 8px;\n        right: 8px;\n        width: auto;\n        max-width: none;\n    }\n\n    .search-box {\n        min-height: 50px;\n    }\n\n    .search-results {\n        max-height: min(52vh, 430px);\n        overscroll-behavior: contain;\n    }\n\n    .queue-panel {\n        max-height: 78dvh;\n    }\n\n    .queue-list {\n        max-height: calc(78dvh - 84px);\n    }\n\n    .mini-player {\n        left: max(8px, env(safe-area-inset-left));\n        right: max(8px, env(safe-area-inset-right));\n        bottom: max(8px, env(safe-area-inset-bottom));\n    }\n\n    footer {\n        padding: 34px 16px 96px;\n    }\n}\n\n@media (max-width: 430px) {\n    .site-header .nav-link:nth-child(2),\n    .site-header .nav-link:nth-child(3) {\n        display: none;\n    }\n\n    .hero h1 {\n        font-size: clamp(40px, 15vw, 52px);\n    }\n\n    .selected-album-art {\n        width: 94px;\n        height: 94px;\n    }\n\n    .album-browser-head {\n        flex-direction: row;\n        align-items: center;\n    }\n\n    .liked-song {\n        grid-template-columns: 28px 42px minmax(0, 1fr) 44px;\n    }\n\n    .mini-meta {\n        max-width: 105px;\n    }\n}\n\n@media (hover: none), (pointer: coarse) {\n    .song-card:hover,\n    .team-card:hover,\n    .social-btn:hover,\n    .album-track:hover,\n    .controls button:hover {\n        transform: none !important;\n    }\n\n    .song-card:hover .cover img {\n        transform: none !important;\n    }\n}\n
-/* tumhara existing pura CSS upar rahega */
-
-
-/* =====================================
-   ADVANCED PREMIUM BACKGROUND
-   ===================================== */
-
-body{
-  ...
-}
-
-.background{
-  ...
 }
