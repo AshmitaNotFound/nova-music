@@ -136,7 +136,7 @@
             audio: "songs1/Desi Heats-01.mp3"
           },
           {
-            title: "songs1.1/The Breakup",
+            title: "The Breakup",
             artist: "Arijit Singh",
             audio: "songs1.1/Desi Heats-02.mp3"
           },
