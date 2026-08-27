@@ -49,6 +49,13 @@
     </a>
 
     <div class="header-right">
+      <button
+  class="nova-signin-btn"
+  id="novaSignInBtn"
+  type="button"
+>
+  Sign In
+</button>
       <!-- SEARCH BUTTON -->
 <button
   class="search-toggle"
@@ -495,6 +502,93 @@
     ></div>
 
   </aside>
+  <!-- =========================
+     NOVA SIGN IN
+========================= -->
+
+<div
+  class="nova-auth-overlay"
+  id="novaAuthOverlay"
+  aria-hidden="true"
+>
+
+  <div class="nova-auth-card">
+
+    <button
+      class="nova-auth-close"
+      id="novaAuthClose"
+      type="button"
+      aria-label="Close sign in"
+    >
+      ×
+    </button>
+
+    <p class="nova-auth-title">
+      SIGN IN
+    </p>
+
+    <form id="novaAuthForm">
+
+      <div class="nova-form-group">
+
+        <label
+          class="nova-form-label"
+          for="novaUsername"
+        >
+          Username
+        </label>
+
+        <input
+          id="novaUsername"
+          class="nova-form-input"
+          type="text"
+          placeholder="Enter your username"
+          autocomplete="username"
+          required
+        >
+
+      </div>
+
+
+      <div class="nova-form-group">
+
+        <label
+          class="nova-form-label"
+          for="novaPassword"
+        >
+          Password
+        </label>
+
+        <input
+          id="novaPassword"
+          class="nova-form-input"
+          type="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        >
+
+      </div>
+
+
+      <button
+        class="nova-auth-submit"
+        type="submit"
+      >
+        SIGN IN
+      </button>
+
+    </form>
+
+
+    <p
+      class="nova-auth-message"
+      id="novaAuthMessage"
+    ></p>
+
+  </div>
+
+</div>
 
   <audio id="audio" preload="metadata"></audio>
   <script src="script.js"></script>
