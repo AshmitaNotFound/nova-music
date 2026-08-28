@@ -1573,6 +1573,51 @@ function playLikedSongAt(position) {
                 });
             }
           );
+
+
+        // PREMIUM ALBUM HOVER MOTION
+        let albumMotionFrame = 0;
+        const albumMotionAllowed = window.matchMedia(
+          "(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)"
+        );
+
+        card.addEventListener("pointerenter", () => {
+          if (window.innerWidth >= 900 && albumMotionAllowed.matches) {
+            card.classList.add("motion");
+          }
+        });
+
+        card.addEventListener("pointermove", event => {
+          if (window.innerWidth < 900 || !albumMotionAllowed.matches) return;
+
+          const rect = card.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+
+          const mouseX = event.clientX - rect.left;
+          const mouseY = event.clientY - rect.top;
+          const x = mouseX / rect.width - 0.5;
+          const y = mouseY / rect.height - 0.5;
+
+          cancelAnimationFrame(albumMotionFrame);
+          albumMotionFrame = requestAnimationFrame(() => {
+            card.style.transform = `perspective(900px) translateY(-10px) scale(1.055) rotateX(${y * -10}deg) rotateY(${x * 12}deg)`;
+            card.style.setProperty("--mouse-x", `${mouseX}px`);
+            card.style.setProperty("--mouse-y", `${mouseY}px`);
+            card.style.setProperty("--gx", `${(x + 0.5) * 100}%`);
+            card.style.setProperty("--gy", `${(y + 0.5) * 100}%`);
+            card.style.setProperty("--ix", `${x * -14}px`);
+            card.style.setProperty("--iy", `${y * -14}px`);
+          });
+        });
+
+        card.addEventListener("pointerleave", () => {
+          cancelAnimationFrame(albumMotionFrame);
+          card.classList.remove("motion");
+          card.style.transform = "";
+          ["--gx", "--gy", "--ix", "--iy", "--mouse-x", "--mouse-y"].forEach(
+            prop => card.style.removeProperty(prop)
+          );
+        });
       }
     );
 
