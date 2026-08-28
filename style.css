@@ -5273,3 +5273,95 @@ html.nova-page-hidden .particles span{
     transform:none !important;
   }
 }
+/* ===== NOVA ALBUM HOVER MOTION ===== */
+@media (hover:hover) and (pointer:fine){
+
+  .song-card{
+    --gx:50%;--gy:50%;
+    --ix:0px;--iy:0px;
+    isolation:isolate;
+    overflow:hidden;
+    will-change:transform;
+    transition:transform .4s cubic-bezier(.2,.8,.2,1),
+               border-color .25s,box-shadow .3s,background .25s;
+  }
+
+  .song-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:0;
+    background:radial-gradient(circle at var(--gx) var(--gy),
+      rgba(255,255,255,.22),
+      rgba(139,92,255,.13) 18%,
+      rgba(0,217,255,.08) 32%,
+      transparent 58%);
+    transition:opacity .25s;
+  }
+
+  .song-card::after{
+    content:"";
+    position:absolute;
+    width:180%;
+    aspect-ratio:1;
+    left:-40%;
+    top:-55%;
+    z-index:0;
+    border-radius:50%;
+    pointer-events:none;
+    opacity:0;
+    background:conic-gradient(
+      transparent 0 35%,
+      rgba(139,92,255,.16),
+      rgba(0,217,255,.14),
+      transparent 60%
+    );
+  }
+
+  .song-card>*{
+    position:relative;
+    z-index:2;
+  }
+
+  .song-card.motion{
+    border-color:rgba(166,140,255,.45);
+    background:rgba(255,255,255,.085);
+    box-shadow:0 25px 60px rgba(0,0,0,.4),
+               0 0 35px rgba(110,70,255,.12);
+    transition:transform .1s ease-out;
+  }
+
+  .song-card.motion::before{opacity:1}
+
+  .song-card.motion::after{
+    opacity:1;
+    animation:albumOrbit 3.5s linear infinite;
+  }
+
+  .song-card .cover img{
+    will-change:transform;
+    transition:transform .2s ease-out,filter .25s;
+  }
+
+  .song-card.motion .cover img{
+    transform:translate3d(var(--ix),var(--iy),0) scale(1.12);
+    filter:saturate(1.08) contrast(1.04);
+  }
+
+  .song-card .card-play{
+    transition:opacity .2s,transform .3s cubic-bezier(.2,.9,.2,1.3);
+  }
+
+  .song-card.motion .card-play{
+    opacity:1;
+    transform:translateY(0) scale(1.08);
+  }
+
+  .song-card.motion .cover-shine{opacity:1}
+
+  @keyframes albumOrbit{
+    to{transform:rotate(360deg)}
+  }
+}
