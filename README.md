@@ -1,20 +1,5 @@
 <div align="center">
 
-## 🌐 LIVE PROJECT
-
-<a href="https://nova-music-k6av.onrender.com/" target="_blank">
-  <img src="https://img.shields.io/badge/CLICK%20HERE%20TO%20OPEN%20NOVA-LIVE%20WEBSITE-6C4DFF?style=for-the-badge&logo=render&logoColor=white"/>
-</a>
-
-<br/><br/>
-
-🔗 **Website:** https://nova-music-k6av.onrender.com/
-
-</div>
-
----
-<div align="center">
-
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:05050d,32:1a103b,68:5b3df5,100:00d9ff&height=190&section=header&text=NOVA&fontSize=58&fontColor=FFFFFF&animation=fadeIn&fontAlignY=35&desc=MUSIC%20%E2%80%A2%20MOTION%20%E2%80%A2%20MOOD&descAlignY=57&descSize=17" width="100%"/>
 
 <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=19&duration=2200&pause=700&color=9A7CFF&center=true&vCenter=true&width=760&lines=SIGNAL+ONLINE;DISCOVER+%E2%86%92+PLAY+%E2%86%92+SYNC;TWO+DEVICES.+ONE+MOMENT." alt="NOVA animated heading"/>
