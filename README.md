@@ -152,7 +152,7 @@ node server.js
 Open:
 
 ```text
-http://localhost:3000
+(https://nova-music-k6av.onrender.com)
 ```
 
 ---
