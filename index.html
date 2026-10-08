@@ -1,337 +1,139 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOVA Music</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NOVA Music</title>
+<meta name="description" content="NOVA is a music player built around motion and mood, with real-time Listen Together rooms.">
+<meta name="theme-color" content="#07070A">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✦</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <!-- NOVA interactive ambient background -->
-  <div class="background" aria-hidden="true">
-    <div class="mesh-layer"></div>
-    <div class="noise-layer"></div>
+<body class="v2">
 
-    <div class="aurora aurora1"></div>
-    <div class="aurora aurora2"></div>
+<div class="v2-bg" aria-hidden="true"><div class="v2-orb"></div></div>
 
-    <div class="light-beam beam1"></div>
-    <div class="light-beam beam2"></div>
-
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
-
-    <div class="graphic-ring ring-one"></div>
-    <div class="graphic-ring ring-two"></div>
-    <div class="graphic-ring ring-three"></div>
-
-    <svg class="wave-graphic wave-graphic-one" viewBox="0 0 900 180" preserveAspectRatio="none">
-      <path d="M0 92 C100 20 180 165 290 88 S480 18 590 92 780 165 900 72" />
-      <path d="M0 115 C120 55 190 145 310 108 S520 46 640 112 800 138 900 96" />
-      <path d="M0 68 C90 118 185 38 300 72 S510 136 620 66 810 46 900 82" />
-    </svg>
-
-    <svg class="wave-graphic wave-graphic-two" viewBox="0 0 900 180" preserveAspectRatio="none">
-      <path d="M0 88 C125 145 190 26 315 88 S520 148 650 82 815 35 900 104" />
-      <path d="M0 116 C95 70 210 152 330 102 S535 52 650 108 805 142 900 88" />
-    </svg>
-
-    <div class="particles" id="particles"></div>
-    <div class="stars" id="stars"></div>
+<header class="site-header v2-nav">
+  <a href="#home" class="v2-logo" aria-label="NOVA home"><span class="v2-star" aria-hidden="true">✦</span>NOVA</a>
+  <div class="header-right">
+    <button class="search-toggle" id="searchToggle" type="button" aria-label="Search music"><span>⌕</span><span class="search-toggle-text">Search</span></button>
+    <nav aria-label="Primary">
+      <a href="#home" class="v2-link on">Home</a>
+      <a href="#songs" class="v2-link">Discover</a>
+      <a href="#liked-songs" class="v2-link">Library</a>
+      <a href="#together" class="v2-link">Together</a>
+    </nav>
   </div>
+</header>
 
-  <!-- Soft blurred desktop cursor glow -->
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
-
-  <!-- Lightweight touch feedback -->
-  <div class="touch-glow" id="touchGlow" aria-hidden="true"></div>
-
-  <header class="site-header">
-    <a href="#home" class="logo">
-      <div class="logo-mark">
-        <span class="logo-wave">♪</span>
-        <span class="logo-ring"></span>
-      </div>
-
-      <div class="logo-content">
-        <span class="logo-name">NOVA</span>
-        <span class="logo-tagline">MUSIC • MOTION • MOOD</span>
-      </div>
-    </a>
-
-    <div class="header-right">
-      <!-- SEARCH BUTTON -->
-<button
-  class="search-toggle"
-  id="searchToggle"
-  type="button"
-  aria-label="Search music"
->
-  <span>⌕</span>
-  <span class="search-toggle-text">Search</span>
-</button>
-      <nav>
-        <a href="#home" class="nav-link active"><span>Home</span></a>
-        <a href="#songs" class="nav-link"><span>Songs</span></a>
-        <a href="#player" class="nav-link"><span>Player</span></a>
-        <a href="#team" class="nav-link"><span>Team</span></a>
-      </nav>
-
-      <div class="live-status">
-        <span class="status-dot"></span>
-        LIVE EXPERIENCE
-      </div>
-    </div>
-  </header>
-<!-- =====================================
-     MUSIC SEARCH
-====================================== -->
-
-<div
-  class="music-search"
-  id="musicSearch"
->
-
+<div class="music-search" id="musicSearch">
   <div class="search-box">
-
-    <span class="search-icon">
-      ⌕
-    </span>
-
-    <input
-      type="text"
-      id="musicSearchInput"
-      placeholder="Search songs, artists or albums..."
-      autocomplete="off"
-    >
-
-    <button
-      class="search-close"
-      id="searchClose"
-      type="button"
-      aria-label="Close search"
-    >
-      ×
-    </button>
-
+    <span class="search-icon">⌕</span>
+    <input type="text" id="musicSearchInput" placeholder="Search songs, artists or albums..." autocomplete="off">
+    <button class="search-close" id="searchClose" type="button" aria-label="Close search">×</button>
   </div>
-
-
-  <div
-    class="search-results"
-    id="searchResults"
-  >
-
-    <div class="search-placeholder">
-      Start typing to discover music.
-    </div>
-
-  </div>
-
-</div>
-  <main>
-    <section id="home" class="hero section-reveal">
-      <div class="hero-text">
-        <p class="small-title">YOUR PERSONAL MUSIC SPACE</p>
-        <h1>Feel the <span>Sound.</span></h1>
-        <p class="hero-copy">A fluid music experience built around motion, mood and discovery.</p>
-        <a href="#songs" class="start-btn magnetic-btn">Explore Music <span>↘</span></a>
-      </div>
-
-      <div class="hero-visual" id="heroVisual">
-        <span class="floating-note note-one">♪</span>
-        <span class="floating-note note-two">♫</span>
-        <span class="floating-note note-three">♬</span>
-        <div class="orbit orbit-one"></div>
-        <div class="orbit orbit-two"></div>
-        <div class="music-circle" id="musicCircle">
-          <div class="circle-core"></div>
-          <div class="bars" aria-hidden="true">
-            <span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-   <div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-
-    <div class="marquee-content">
-      DISCOVER • FEEL • EXPLORE • OPEN YOUR MIND •
-      DISCOVER • FEEL • EXPLORE • OPEN YOUR MIND •
-    </div>
-
-    <div class="marquee-content">
-      DISCOVER • FEEL • EXPLORE • OPEN YOUR MIND •
-      DISCOVER • FEEL • EXPLORE • OPEN YOUR MIND •
-    </div>
-
+  <div class="search-results" id="searchResults">
+    <div class="search-placeholder">Start typing to discover music.</div>
   </div>
 </div>
 
-    <section id="songs" class="songs-section section-reveal">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">CURATED FOR YOU</p>
-          <h2>Featured Albums</h2>
-        </div>
-        <p class="section-subtitle">Choose an album to explore its tracks.</p>
-
-        <p class="mobile-swipe-hint" aria-hidden="true">
-          ← Swipe albums →
-        </p>
-
+<main>
+  <section id="home" class="v2-hero">
+    <div class="v2-hero-text" data-rv>
+      <h1>Your sound.<br><span>Your space.</span></h1>
+      <p class="v2-lead">Music that moves with you.</p>
+      <div class="v2-cta">
+        <a href="#songs" class="v2-btn v2-btn-primary">Explore Music</a>
+        <button type="button" class="v2-btn v2-btn-ghost" data-open-listen>Listen Together</button>
       </div>
-
-      <div class="song-grid">
-        <article class="song-card" data-index="0">
-          <div class="cover fallback-1">
-            <img src="images/cover1.jpg" alt="DESI HEATS album cover" loading="lazy" decoding="async">
-            <div class="cover-shine"></div>
-            <button class="card-play" type="button" aria-label="Play DESI HEATS album">▶</button>
-          </div>
-          <div class="song-card-meta">
-            <div><h3>DESI HEATS</h3><p>Nova • 10 tracks</p></div>
-            <span>01</span>
-          </div>
-        </article>
-
-        <article class="song-card" data-index="1">
-          <div class="cover fallback-2">
-            <img src="images/cover2.jpg" alt="Midnight City album cover" loading="lazy" decoding="async">
-            <div class="cover-shine"></div>
-            <button class="card-play" type="button" aria-label="Play Midnight City album">▶</button>
-          </div>
-          <div class="song-card-meta">
-            <div><h3>Midnight City</h3><p>Lunar • 10 tracks</p></div>
-            <span>02</span>
-          </div>
-        </article>
-
-        <article class="song-card" data-index="2">
-          <div class="cover fallback-3">
-            <img src="images/cover3.jpg" alt="Paradise album cover" loading="lazy" decoding="async">
-            <div class="cover-shine"></div>
-            <button class="card-play" type="button" aria-label="Play Paradise album">▶</button>
-          </div>
-          <div class="song-card-meta">
-            <div><h3>Paradise</h3><p>Echo • 10 tracks</p></div>
-            <span>03</span>
-          </div>
-        </article>
-
-        <article class="song-card" data-index="3">
-          <div class="cover fallback-4">
-            <img src="images/cover4.jpg" alt="Ocean Dreams album cover" loading="lazy" decoding="async">
-            <div class="cover-shine"></div>
-            <button class="card-play" type="button" aria-label="Play Ocean Dreams album">▶</button>
-          </div>
-          <div class="song-card-meta">
-            <div><h3>Ocean Dreams</h3><p>Aurora • 10 tracks</p></div>
-            <span>04</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Album track list -->
-    <section id="album-tracks" class="album-tracks-section section-reveal">
-      <div class="album-browser">
-        <div class="album-browser-head">
-          <div class="selected-album-art">
-            <img id="selectedAlbumCover" src="images/cover1.jpg" alt="Selected album cover">
-          </div>
-
-          <div class="selected-album-copy">
-            <p class="eyebrow">SELECTED ALBUM</p>
-            <h2 id="selectedAlbumTitle">Desi Heats</h2>
-            <p class="album-artist-line">
-              <span id="selectedAlbumArtist">Nova</span>
-              &nbsp;•&nbsp;
-              <span id="selectedAlbumCount">10 TRACKS</span>
-            </p>
-          </div>
-        </div>
-
-        <div class="album-song-list" id="albumSongList"></div>
-      </div>
-    </section>
-
-    <!-- =====================================
-     LIKED SONGS
-====================================== -->
-
-<section
-  id="liked-songs"
-  class="liked-section section-reveal"
->
-
-  <div class="section-heading">
-
-    <div>
-
-      <p class="eyebrow">
-        YOUR COLLECTION
-      </p>
-
-      <h2>
-        Liked Songs
-      </h2>
-
     </div>
+    <div class="v2-hero-art" id="heroVisual" data-rv>
+      <div class="v2-hero-glow"></div>
+      <img src="images/cover1.jpg" alt="Featured album artwork">
+    </div>
+  </section>
 
-    <p
-      class="liked-count"
-      id="likedCount"
-    >
-      0 songs
-    </p>
+  <section id="songs" class="v2-section">
+    <div class="v2-head" data-rv>
+      <h2>DISCOVER</h2>
+      <p>Find your next obsession.</p>
+    </div>
+    <div class="song-grid" data-rv>
+      <article class="song-card" data-index="0" tabindex="0" aria-label="Open Desi Heats album">
+        <div class="cover"><img src="images/cover1.jpg" alt="Desi Heats album cover" loading="lazy" decoding="async"><button class="card-play" type="button" aria-label="Play Desi Heats album">▶</button></div>
+        <div class="song-card-meta"><h3>Desi Heats</h3><p>Nova</p><small>10 tracks</small></div>
+      </article>
+      <article class="song-card" data-index="1" tabindex="0" aria-label="Open Midnight City album">
+        <div class="cover"><img src="images/cover2.jpg" alt="Midnight City album cover" loading="lazy" decoding="async"><button class="card-play" type="button" aria-label="Play Midnight City album">▶</button></div>
+        <div class="song-card-meta"><h3>Midnight City</h3><p>Lunar</p><small>7 tracks</small></div>
+      </article>
+      <article class="song-card" data-index="2" tabindex="0" aria-label="Open Paradise album">
+        <div class="cover"><img src="images/cover3.jpg" alt="Paradise album cover" loading="lazy" decoding="async"><button class="card-play" type="button" aria-label="Play Paradise album">▶</button></div>
+        <div class="song-card-meta"><h3>Paradise</h3><p>Echo</p><small>7 tracks</small></div>
+      </article>
+      <article class="song-card" data-index="3" tabindex="0" aria-label="Open Ocean Dreams album">
+        <div class="cover"><img src="images/cover4.jpg" alt="Ocean Dreams album cover" loading="lazy" decoding="async"><button class="card-play" type="button" aria-label="Play Ocean Dreams album">▶</button></div>
+        <div class="song-card-meta"><h3>Ocean Dreams</h3><p>Aurora</p><small>7 tracks</small></div>
+      </article>
+    </div>
+  </section>
 
-  </div>
-
-
-  <div class="liked-panel">
-
-    <div
-      class="liked-songs-list"
-      id="likedSongsList"
-    ></div>
-
-  </div>
-
-</section>
-
-    <section id="player" class="player-section section-reveal">
-      <div class="player" id="playerCard">
-        <div class="player-glow"></div>
-
-        <div class="album-wrap">
-          <div class="album">
-            <img id="albumCover" src="images/cover1.jpg" alt="Current album cover">
-          </div>
-          <div class="vinyl-ring"></div>
+  <section id="album-tracks" class="v2-section v2-tracks">
+    <div class="album-browser">
+      <div class="album-browser-head">
+        <div class="selected-album-art"><img id="selectedAlbumCover" src="images/cover1.jpg" alt="Selected album cover"></div>
+        <div class="selected-album-copy">
+          <p class="v2-kicker">Now discovering</p>
+          <h2 id="selectedAlbumTitle">Desi Heats</h2>
+          <p class="album-artist-line"><span id="selectedAlbumArtist">Nova</span> — <span id="selectedAlbumCount">10 tracks</span></p>
+          <button type="button" class="v2-btn v2-btn-primary" id="v2AlbumPlay"><span data-icon="play"></span>Play album</button>
         </div>
+      </div>
+      <div class="album-song-list" id="albumSongList"></div>
+    </div>
+  </section>
 
+  <section id="liked-songs" class="v2-section">
+    <div class="v2-head v2-head-row" data-rv>
+      <div><h2>YOUR LIBRARY</h2><p>Everything you've saved and played.</p></div>
+      <p class="liked-count" id="likedCount">0 songs</p>
+    </div>
+    <div class="v2-tabs" role="tablist" aria-label="Library views">
+      <button type="button" role="tab" aria-selected="true" data-tab="liked">Liked</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="recent">Recently played</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="queue">Queue</button>
+    </div>
+    <div class="liked-panel">
+      <div class="liked-songs-list" id="likedSongsList" role="tabpanel"></div>
+      <div class="liked-songs-list" id="recentList" role="tabpanel" hidden></div>
+      <div class="liked-songs-list" id="libQueue" role="tabpanel" hidden></div>
+    </div>
+  </section>
+
+  <section id="player" class="v2-section">
+    <div class="player" id="playerCard">
+      <div class="player-glow"></div>
+      <div class="album-wrap">
+        <div class="album"><img id="albumCover" src="images/cover1.jpg" alt="Current album cover"></div>
+        <div class="vinyl-ring"></div>
+      </div>
+      <div class="v2-info">
         <div class="song-info">
-          <p class="now-playing">NOW PLAYING</p>
+          <p class="now-playing">Now playing</p>
           <h2 id="songTitle">Desi Heats</h2>
           <p id="artistName">Nova</p>
         </div>
-
-        <div class="visualizer" id="visualizer" aria-hidden="true">
-          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-        </div>
-
+        <div class="visualizer" id="visualizer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="v2-center">
         <div class="progress-area">
           <span id="currentTime">0:00</span>
           <input type="range" id="progress" min="0" max="100" value="0" aria-label="Song progress">
-          <span id="duration">3:30</span>
+          <span id="duration">0:00</span>
         </div>
-
         <div class="controls">
           <button id="shuffleBtn" class="mode-control" type="button" aria-label="Shuffle off" aria-pressed="false" title="Shuffle">🔀</button>
           <button id="previous" type="button" aria-label="Previous song">⏮</button>
@@ -339,216 +141,117 @@
           <button id="next" type="button" aria-label="Next song">⏭</button>
           <button id="repeatBtn" class="mode-control" type="button" aria-label="Repeat off" aria-pressed="false" title="Repeat">🔁</button>
         </div>
-
-        <div class="volume-area">
-          <span>🔊</span>
-          <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7" aria-label="Volume">
-        </div>
-
-        <div class="player-extra-actions">
-          <button
-            id="openQueueMain"
-            class="main-queue-btn"
-            type="button"
-            aria-label="Open song queue"
-          >
-            <span>☷</span>
-            VIEW QUEUE
-          </button>
-        </div>
-
       </div>
-    </section>
-
-    <section id="team" class="credits-section section-reveal">
-      <div class="credits-heading">
-        <p class="eyebrow">THE PEOPLE BEHIND NOVA</p>
-        <h2>Meet the Creators</h2>
-        <p>Designed with curiosity, caffeine and a suspicious number of CSS transforms.</p>
+      <div class="v2-right">
+        <div class="volume-area"><span>🔊</span><input type="range" id="volume" min="0" max="1" step="0.01" value="0.7" aria-label="Volume"></div>
+        <div class="player-extra-actions"><button id="openQueueMain" class="main-queue-btn" type="button" aria-label="Open song queue"><span>☷</span>Queue</button></div>
       </div>
-
-      <div class="team-grid">
-        <article class="team-card">
-          <div class="team-photo-wrap">
-            <div class="photo-ring"></div>
-            <div class="team-photo-fallback" aria-hidden="true">AC</div>
-            <img class="team-photo" src="images/ASHMITA.jpg" alt="Ashmita Choudhury">
-          </div>
-
-          <p class="member-label"> • DESIGN</p>
-          <p class="member-label"> • VISUAL EXPERIENCE LEAD</p>
-          <h3>Ashmita Choudhury</h3>
-          <p class="member-role">UI/UX Designer</p>
-
-          <div class="social-links">
-            <a class="social-btn magnetic-social" href="https://www.instagram.com/not_raiby/" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a class="social-btn magnetic-social" href="https://www.linkedin.com/in/ashmita-choudhury-7a630b2ba" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          </div>
-        </article>
-
-        <article class="team-card">
-          <div class="team-photo-wrap">
-            <div class="photo-ring"></div>
-            <div class="team-photo-fallback" aria-hidden="true">TM</div>
-            <img class="team-photo" src="images/member1.jpg" alt="Aritra Biswas">
-          </div>
-
-          <p class="member-label">•INTERACTION</p>
-          <p class="member-label">•LOGIC</p>
-          <h3>Aritra Biswas</h3>
-          <p class="member-role">Interaction Developer</p>
-
-          <div class="social-links">
-            <a class="social-btn magnetic-social" href="https://www.instagram.com/mell.ow_lad?igsi=cnNubGMxMXQwYjRk" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a class="social-btn magnetic-social" href="https://www.linkedin.com/in/aritra-biswas-7a630b2ba" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          </div>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2026 NOVA MUSIC • Made with HTML, CSS & JavaScript</p>
-  </footer>
-
-
-  <!-- =====================================
-       FLOATING NOW PLAYING
-  ====================================== -->
-
-  <div class="mini-player visible" id="miniPlayer" aria-live="polite">
-
-    <button
-      class="mini-cover-button"
-      id="miniOpenPlayer"
-      type="button"
-      aria-label="Open main player"
-    >
-      <img
-        id="miniCover"
-        src="images/cover1.jpg"
-        alt="Now playing cover"
-      >
-    </button>
-
-    <div class="mini-meta">
-      <span class="mini-label">NOW PLAYING</span>
-      <strong id="miniTitle">Desi HEATS</strong>
-      <small id="miniArtist">Nova</small>
     </div>
+  </section>
 
-    <div class="mini-actions">
-
-      <button
-        id="miniQueueBtn"
-        class="mini-icon-btn"
-        type="button"
-        aria-label="Open queue"
-      >
-        ☷
-      </button>
-
-      <button
-        id="miniPlayPause"
-        class="mini-play-btn"
-        type="button"
-        aria-label="Play or pause"
-      >
-        ▶
-      </button>
-
-      <button
-        id="miniNext"
-        class="mini-icon-btn"
-        type="button"
-        aria-label="Next song"
-      >
-        ⏭
-      </button>
-
+  <section id="together" class="v2-section v2-together">
+    <div class="v2-together-copy" data-rv>
+      <h2>ONE ROOM.<br>SAME MOMENT.</h2>
+      <p>Create a room, share the code, and play, pause and skip in sync across two devices.</p>
+      <div class="v2-cta">
+        <button type="button" class="v2-btn v2-btn-primary" data-open-listen>Create room</button>
+        <button type="button" class="v2-btn v2-btn-ghost" data-open-listen="join">Join room</button>
+      </div>
     </div>
+    <svg class="v2-sync" data-rv viewBox="0 0 320 380" role="img" aria-label="Device A and Device B connected through the NOVA sync server">
+      <g class="n"><rect x="90" y="10" width="140" height="64" rx="16"/><text x="160" y="48" text-anchor="middle">Device A</text></g>
+      <g class="n core"><rect x="70" y="158" width="180" height="64" rx="16"/><text x="160" y="196" text-anchor="middle">NOVA sync</text></g>
+      <g class="n"><rect x="90" y="306" width="140" height="64" rx="16"/><text x="160" y="344" text-anchor="middle">Device B</text></g>
+      <line class="pulse" x1="160" y1="74" x2="160" y2="158"/>
+      <line class="pulse" x1="160" y1="222" x2="160" y2="306"/>
+    </svg>
+  </section>
 
+  <section id="team" class="v2-section">
+    <div class="v2-head" data-rv><h2>BUILT BY</h2></div>
+    <div class="team-grid" data-rv>
+      <article class="team-card">
+        <div class="team-photo-wrap">
+          <div class="team-photo-fallback" aria-hidden="true">AC</div>
+          <img class="team-photo" src="images/ASHMITA.jpg" alt="Ashmita Choudhury">
+        </div>
+        <h3>Ashmita Choudhury</h3>
+        <p class="v2-role">UI/UX · Frontend</p>
+        <div class="social-links">
+          <a class="social-btn" href="https://www.instagram.com/not_raiby/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a class="social-btn" href="https://www.linkedin.com/in/ashmita-choudhury-7a630b2ba" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </article>
+      <article class="team-card">
+        <div class="team-photo-wrap">
+          <div class="team-photo-fallback" aria-hidden="true">AB</div>
+          <img class="team-photo" src="images/member1.jpg" alt="Aritra Biswas">
+        </div>
+        <h3>Aritra Biswas</h3>
+        <p class="v2-role">Design · Development</p>
+        <div class="social-links">
+          <a class="social-btn" href="https://www.instagram.com/mell.ow_lad?igsi=cnNubGMxMXQwYjRk" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a class="social-btn" href="https://www.linkedin.com/in/aritra-biswas-7a630b2ba" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="v2-footer">
+  <strong>NOVA</strong>
+  <p>Music · Motion · Mood</p>
+  <p class="v2-footlinks"><a href="https://github.com/AshmitaNotFound/nova-music" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://nova-music-k6av.onrender.com/">Project</a></p>
+  <small>© 2026 NOVA</small>
+</footer>
+
+<div class="mini-player visible" id="miniPlayer" aria-live="polite">
+  <button class="mini-cover-button" id="miniOpenPlayer" type="button" aria-label="Open main player"><img id="miniCover" src="images/cover1.jpg" alt="Now playing cover"></button>
+  <div class="mini-meta"><span class="mini-label">Now playing</span><strong id="miniTitle">Desi Heats</strong><small id="miniArtist">Nova</small></div>
+  <div class="mini-actions">
+    <button id="miniQueueBtn" class="mini-icon-btn" type="button" aria-label="Open queue">☷</button>
+    <button id="miniPlayPause" class="mini-play-btn" type="button" aria-label="Play or pause">▶</button>
+    <button id="miniNext" class="mini-icon-btn" type="button" aria-label="Next song">⏭</button>
   </div>
+</div>
 
+<div class="queue-backdrop" id="queueBackdrop" aria-hidden="true"></div>
+<aside class="queue-panel" id="queuePanel" aria-hidden="true">
+  <div class="queue-header">
+    <div><span class="queue-eyebrow">Current album</span><h3 id="queueAlbumTitle">Queue</h3></div>
+    <button class="queue-close" id="queueClose" type="button" aria-label="Close queue">×</button>
+  </div>
+  <div class="queue-list" id="queueList"></div>
+</aside>
 
-  <!-- =====================================
-       QUEUE PANEL
-  ====================================== -->
-
-  <div
-    class="queue-backdrop"
-    id="queueBackdrop"
-    aria-hidden="true"
-  ></div>
-
-  <aside
-    class="queue-panel"
-    id="queuePanel"
-    aria-hidden="true"
-  >
-
-    <div class="queue-header">
-
-      <div>
-        <span class="queue-eyebrow">CURRENT ALBUM</span>
-        <h3 id="queueAlbumTitle">Dreamscape</h3>
-      </div>
-
-      <button
-        class="queue-close"
-        id="queueClose"
-        type="button"
-        aria-label="Close queue"
-      >
-        ×
-      </button>
-
-    </div>
-
-    <div
-      class="queue-list"
-      id="queueList"
-    ></div>
-
-  </aside>
-  <!-- LISTEN TOGETHER -->
 <div id="syncIndicator" class="sync-indicator" data-state="idle" aria-live="polite">
-    <span class="sync-dot" aria-hidden="true"></span>
-    <span id="syncStatusText">Offline</span>
+  <span class="sync-dot" aria-hidden="true"></span><span id="syncStatusText">Offline</span>
 </div>
-<button id="listenTogetherBtn" type="button">🎧 Listen Together</button>
-
+<button id="listenTogetherBtn" type="button">Listen Together</button>
 <div id="listenModal" class="listen-modal">
-    <div class="listen-box">
-
-        <button id="closeListenModal">×</button>
-
-        <h2>Listen Together</h2>
-        <p>Listen to the same music with a friend.</p>
-
-        <button id="createRoomBtn">
-            Create Room
-        </button>
-
-        <div class="listen-divider">OR</div>
-
-        <input
-            type="text"
-            id="roomCodeInput"
-            placeholder="Enter room code"
-            maxlength="8"
-        >
-
-        <button id="joinRoomBtn">
-            Join Room
-        </button>
-
-        <div id="roomStatus"></div>
-
-    </div>
+  <div class="listen-box">
+    <button id="closeListenModal" aria-label="Close">×</button>
+    <h2>Listen Together</h2>
+    <p>Listen to the same music with a friend.</p>
+    <button id="createRoomBtn">Create Room</button>
+    <div class="listen-divider">OR</div>
+    <input type="text" id="roomCodeInput" placeholder="Enter room code" maxlength="8">
+    <button id="joinRoomBtn">Join Room</button>
+    <div id="roomStatus"></div>
+  </div>
 </div>
+
+<nav class="v2-bottom" aria-label="Mobile">
+  <a href="#home"><span data-icon="home"></span>Home</a>
+  <a href="#songs"><span data-icon="compass"></span>Discover</a>
+  <a href="#liked-songs"><span data-icon="heart"></span>Library</a>
+  <a href="#player"><span data-icon="music"></span>Player</a>
+</nav>
+
+<audio id="audio" preload="metadata"></audio>
 <script src="/socket.io/socket.io.js"></script>
 <script src="player-modes.js"></script>
 <script src="script.js"></script>
+<script src="v2.js"></script>
 </body>
 </html>
