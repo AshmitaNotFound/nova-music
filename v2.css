@@ -1,15 +1,15 @@
 /* NOVA V2 — cinematic design system */
 :root{
-  --nova-bg:#07070A;
-  --nova-surface:#101116;
-  --nova-surface-2:#17181F;
-  --nova-border:#252630;
-  --nova-text:#F5F5F7;
-  --nova-muted:#92939D;
-  --nova-dim:#5F606A;
-  --nova-violet:#8B5CF6;
-  --nova-pink:#EC4899;
-  --nova-blue:#60A5FA;
+  --nova-bg:#07100D;
+  --nova-surface:#0D1713;
+  --nova-surface-2:#13221C;
+  --nova-border:#20372E;
+  --nova-text:#C7F9CC;
+  --nova-muted:#91B8A5;
+  --nova-dim:#628575;
+  --nova-violet:#38A3A5;
+  --nova-pink:#57CC99;
+  --nova-blue:#22577A;
   --nova-radius:20px;
   --nova-ease:cubic-bezier(.22,1,.36,1);
 }
