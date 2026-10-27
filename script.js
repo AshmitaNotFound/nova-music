@@ -81,6 +81,8 @@
 
     const likedSongsList = $("#likedSongsList");
     const likedCount = $("#likedCount");
+    const recentList = $("#recentList");
+    const libraryQueueList = $("#libQueue");
 
     // ========================================
     // SEARCH
@@ -574,6 +576,68 @@
         )
       );
     }
+    let recentSongIds = [];
+
+    try {
+      const storedRecentSongs = JSON.parse(
+        localStorage.getItem("novaRecentlyPlayed") || "[]"
+      );
+      recentSongIds = Array.isArray(storedRecentSongs)
+        ? storedRecentSongs.filter(id => typeof id === "string")
+        : [];
+    } catch {
+      recentSongIds = [];
+    }
+
+    function getValidRecentSongs() {
+      const validIds = recentSongIds.filter(id => {
+        const [albumIndex, trackIndex] = id.split(":").map(Number);
+        return Boolean(albums[albumIndex]?.tracks[trackIndex]);
+      });
+      return [...new Set(validIds)].slice(0, 20);
+    }
+
+    function renderRecentSongs() {
+      if (!recentList) return;
+
+      const items = getValidRecentSongs().map(id => {
+        const [albumIndex, trackIndex] = id.split(":").map(Number);
+        return {
+          albumIndex,
+          trackIndex,
+          album: albums[albumIndex],
+          track: albums[albumIndex].tracks[trackIndex]
+        };
+      });
+
+      if (!items.length) {
+        recentList.innerHTML = '<div class="liked-empty"><div class="liked-empty-heart">&#9835;</div><h3>No recent listens yet</h3><p>Tracks you play will be saved here on this device.</p></div>';
+        return;
+      }
+
+      recentList.innerHTML = items.map((item, index) =>
+        '<button class="liked-song recent-song" type="button" data-album-index="' + item.albumIndex +
+        '" data-track-index="' + item.trackIndex + '" aria-label="Play ' + item.track.title + ' by ' + item.track.artist + '">' +
+        '<span class="liked-number">' + String(index + 1).padStart(2, "0") + '</span>' +
+        '<img class="liked-cover" src="' + (item.track.cover || item.album.cover) + '" alt="">' +
+        '<span class="liked-song-info"><strong>' + item.track.title + '</strong><small>' + item.track.artist + '</small></span>' +
+        '<span class="liked-album-name">' + item.album.title + '</span><span class="recent-play-icon" aria-hidden="true">&#9654;</span></button>'
+      ).join("");
+    }
+
+    function recordCurrentTrack() {
+      const id = getSongId(currentAlbum, currentSong);
+      recentSongIds = [id, ...getValidRecentSongs().filter(item => item !== id)].slice(0, 20);
+
+      try {
+        localStorage.setItem("novaRecentlyPlayed", JSON.stringify(recentSongIds));
+      } catch (error) {
+        console.info("NOVA: recent listens could not be saved.", error);
+      }
+
+      renderRecentSongs();
+    }
+
     function getValidLikedSongs() {
   return likedSongIds.filter(id => {
     const [albumIndex, trackIndex] =
@@ -1069,6 +1133,11 @@ function playLikedSongAt(position) {
             }
           )
           .join("");
+
+      if (libraryQueueList) {
+        libraryQueueList.innerHTML = queueList.innerHTML ||
+          '<div class="liked-empty"><div class="liked-empty-heart">&#9776;</div><h3>Your queue is empty</h3><p>Choose an album to see its upcoming tracks here.</p></div>';
+      }
     }
 
     function openQueue() {
@@ -1486,6 +1555,7 @@ function playLikedSongAt(position) {
       "play",
       () => {
         setPlayingUI(true);
+        recordCurrentTrack();
       }
     );
 
@@ -1765,6 +1835,34 @@ function playLikedSongAt(position) {
             });
         }
       );
+
+    recentList?.addEventListener("click", event => {
+      const row = event.target.closest(".recent-song");
+      if (!row) return;
+
+      const albumIndex = Number(row.dataset.albumIndex);
+      const trackIndex = Number(row.dataset.trackIndex);
+      if (!Number.isInteger(albumIndex) || !Number.isInteger(trackIndex)) return;
+
+      selectAlbum(albumIndex, false);
+      loadSong(trackIndex);
+      playSong();
+      $("#player")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    libraryQueueList?.addEventListener("click", event => {
+      const item = event.target.closest(".queue-item");
+      if (!item) return;
+
+      const index = Number(item.dataset.trackIndex);
+      if (!Number.isInteger(index)) return;
+
+      playbackSource = "album";
+      currentLikedPosition = -1;
+      loadSong(index);
+      playSong();
+      $("#player")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
 
     // ========================================
     // QUEUE EVENTS
@@ -2855,6 +2953,7 @@ document.addEventListener(
     updateModeUI();
     selectAlbum(0, false);
     renderLikedSongs();
+    renderRecentSongs();
     renderQueue();
     updateNavigation();
     miniPlayer?.classList.add("visible");

@@ -41,10 +41,6 @@
       const key=tab.dataset.tab;
       tabs.forEach(t=>t.setAttribute('aria-selected',String(t===tab)));
       Object.entries(panels).forEach(([name,p])=>{if(p)p.hidden=name!==key;});
-      if(key==='queue'){
-        const queue=$('#queueList');
-        if(queue&&panels.queue) panels.queue.innerHTML=queue.innerHTML || '<div class="queue-item">Your queue is empty.</div>';
-      }
     }));
   }
 

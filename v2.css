@@ -105,7 +105,7 @@ body.v2 a{text-decoration:none}
 .v2-tabs{display:flex;gap:6px;margin-bottom:12px}
 .v2-tabs button{border:1px solid var(--nova-border);background:transparent;color:var(--nova-muted);padding:9px 14px;border-radius:10px;cursor:pointer}
 .v2-tabs button[aria-selected=true]{color:#fff;background:rgba(139,92,246,.14);border-color:rgba(139,92,246,.4)}
-.liked-panel{border:1px solid var(--nova-border);border-radius:18px;overflow:hidden;background:var(--nova-surface)}
+.recent-song{width:100%;text-align:left;color:var(--nova-text);font:inherit;cursor:pointer}.recent-play-icon{margin-left:auto;color:var(--nova-muted);font-size:13px}.liked-panel{border:1px solid var(--nova-border);border-radius:18px;overflow:hidden;background:var(--nova-surface)}
 .v2-section#player{padding-top:40px}
 .player{position:relative;display:grid;grid-template-columns:110px 1fr 1.5fr auto;align-items:center;gap:24px;padding:22px;border:1px solid var(--nova-border);border-radius:22px;background:rgba(16,17,22,.92);overflow:hidden}
 .player-glow{position:absolute;inset:auto 15% -100px 15%;height:180px;background:rgba(139,92,246,.14);filter:blur(70px);pointer-events:none}
