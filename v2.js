@@ -41,34 +41,14 @@
       const key=tab.dataset.tab;
       tabs.forEach(t=>t.setAttribute('aria-selected',String(t===tab)));
       Object.entries(panels).forEach(([name,p])=>{if(p)p.hidden=name!==key;});
-      const activePanel=panels[key];
-      if(activePanel && typeof activePanel.animate==='function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-        activePanel.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],{duration:260,easing:'cubic-bezier(.2,.7,.2,1)'});
-      }
     }));
   }
 
-  function setupSearchHotkey(){
-    document.addEventListener('keydown',event=>{
-      const target=event.target;
-      const typing=target instanceof HTMLElement && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName));
-      if(event.key==='/'&&!event.ctrlKey&&!event.metaKey&&!typing){
-        event.preventDefault();
-        const toggle=$('#searchToggle'),search=$('#musicSearch');
-        if(toggle&&search&&!search.classList.contains('open'))toggle.click();
-      }
-    });
-  }
-
-  function setupMoodLinks(){
-    $$("#heroMoods [data-mood-album]").forEach(button=>{
-      button.addEventListener("click",()=>{
-        const card=document.querySelector('.song-card[data-index="'+button.dataset.moodAlbum+'"]');
-        if(!card)return;
-        card.click();
-        document.querySelector("#album-tracks")?.scrollIntoView({behavior:"smooth",block:"center"});
-      });
-    });
+  function setupSearch(){
+    const toggle=$('#searchToggle'), search=$('#musicSearch'), close=$('#searchClose'), input=$('#musicSearchInput');
+    if(toggle&&search) toggle.addEventListener('click',()=>{search.classList.toggle('open');if(search.classList.contains('open'))input?.focus();});
+    close?.addEventListener('click',()=>search?.classList.remove('open'));
+    document.addEventListener('keydown',e=>{if(e.key==='/'&&!e.ctrlKey&&!e.metaKey){e.preventDefault();search?.classList.add('open');input?.focus();}});
   }
 
   function setupMiniPlayer(){
@@ -86,6 +66,6 @@
   }
 
   document.addEventListener('DOMContentLoaded',()=>{
-    setupIcons();setupReveal();setupAlbumPlay();setupLibraryTabs();setupSearchHotkey();setupMoodLinks();setupMiniPlayer();setupActiveNav();
+    setupIcons();setupReveal();setupAlbumPlay();setupLibraryTabs();setupSearch();setupMiniPlayer();setupActiveNav();
   });
 })();

@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>NOVA Music</title>
 <meta name="description" content="NOVA is a music player built around motion and mood, with real-time Listen Together rooms.">
-<meta name="theme-color" content="#17130F">
+<meta name="theme-color" content="#07100D">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✦</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="v2.css">
 <style id="nova-v2-cinematic-overrides">
@@ -132,7 +132,6 @@ body.v2{background:#07100D}
 .search-toggle{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.10);backdrop-filter:blur(10px)}
 @media(max-width:700px){.v2-nav{top:12px;width:calc(100% - 24px);height:62px;padding:0 14px}.header-right{gap:6px}.v2-nav nav{display:none}.search-toggle-text{display:none}}
 </style>
-<link rel="stylesheet" href="nova-theme.css">
 </head>
 <body class="v2">
 
@@ -165,27 +164,16 @@ body.v2{background:#07100D}
 <main>
   <section id="home" class="v2-hero">
     <div class="v2-hero-text" data-rv>
-      <p class="hero-eyebrow"><span></span> A soundtrack for every side of you</p>
       <h1>Your sound.<br><span>Your space.</span></h1>
       <p class="v2-lead">Music that moves with you.</p>
       <div class="v2-cta">
         <a href="#songs" class="v2-btn v2-btn-primary">Explore Music</a>
         <button type="button" class="v2-btn v2-btn-ghost" data-open-listen>Listen Together</button>
       </div>
-      <div class="hero-moods" id="heroMoods" aria-label="Explore music by mood">
-        <div class="hero-mood-heading"><span>FIND YOUR FREQUENCY</span><small>Pick a mood to explore</small></div>
-        <div class="hero-mood-list">
-          <button type="button" data-mood-album="0"><i></i>Desi energy<span>↗</span></button>
-          <button type="button" data-mood-album="1"><i></i>After hours<span>↗</span></button>
-          <button type="button" data-mood-album="2"><i></i>Easy listening<span>↗</span></button>
-          <button type="button" data-mood-album="3"><i></i>Ocean air<span>↗</span></button>
-        </div>
-      </div>
     </div>
     <div class="v2-hero-art" id="heroVisual" data-rv>
       <div class="v2-hero-glow"></div>
       <img src="images/cover1.jpg" alt="Featured album artwork">
-      <div class="hero-cover-caption"><span>NOW IN THE SPOTLIGHT</span><strong id="heroAlbumTitle">Desi Heats</strong><small id="heroAlbumMeta">Nova · 10 tracks</small></div>
     </div>
   </section>
 
@@ -287,7 +275,7 @@ body.v2{background:#07100D}
       <h2>ONE ROOM.<br>SAME MOMENT.</h2>
       <p>Create a room, share the code, and play, pause and skip in sync across two devices.</p>
       <div class="v2-cta">
-        <button type="button" class="v2-btn v2-btn-primary" data-open-listen="create">Create room</button>
+        <button type="button" class="v2-btn v2-btn-primary" data-open-listen>Create room</button>
         <button type="button" class="v2-btn v2-btn-ghost" data-open-listen="join">Join room</button>
       </div>
     </div>
@@ -338,8 +326,6 @@ body.v2{background:#07100D}
   <small>© 2026 NOVA</small>
 </footer>
 
-<div class="motion-toast" id="motionToast" role="status" aria-live="polite"></div>
-
 <div class="mini-player visible" id="miniPlayer" aria-live="polite">
   <button class="mini-cover-button" id="miniOpenPlayer" type="button" aria-label="Open main player"><img id="miniCover" src="images/cover1.jpg" alt="Now playing cover"></button>
   <div class="mini-meta"><span class="mini-label">Now playing</span><strong id="miniTitle">Desi Heats</strong><small id="miniArtist">Nova</small></div>
@@ -353,7 +339,7 @@ body.v2{background:#07100D}
 <div class="queue-backdrop" id="queueBackdrop" aria-hidden="true"></div>
 <aside class="queue-panel" id="queuePanel" aria-hidden="true">
   <div class="queue-header">
-    <div><span class="queue-eyebrow">Up next</span><h3 id="queueAlbumTitle">Queue</h3></div>
+    <div><span class="queue-eyebrow">Current album</span><h3 id="queueAlbumTitle">Queue</h3></div>
     <button class="queue-close" id="queueClose" type="button" aria-label="Close queue">×</button>
   </div>
   <div class="queue-list" id="queueList"></div>
