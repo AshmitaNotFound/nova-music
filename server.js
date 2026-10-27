@@ -33,19 +33,38 @@ function createServer() {
   io.on("connection", socket => {
     console.log("User connected:", socket.id);
 
-    socket.on("join-room", rawRoom => {
-      if (typeof rawRoom !== "string") return;
-
-      const room = rawRoom.trim().toUpperCase();
-      if (!room) return;
-
-      if (socket.data.room && socket.data.room !== room) {
-        socket.leave(socket.data.room);
+    socket.on("create-room", (rawRoom, acknowledge) => {
+      const room = typeof rawRoom === "string" ? rawRoom.trim().toUpperCase() : "";
+      if (!/^NOVA\d{4}$/.test(room)) {
+        acknowledge?.({ ok: false, message: "Could not create the room. Please try again." });
+        return;
       }
-
+      if (io.sockets.adapter.rooms.has(room)) {
+        acknowledge?.({ ok: false, message: "That room code is already in use. Try creating another." });
+        return;
+      }
+      if (socket.data.room) socket.leave(socket.data.room);
       socket.join(room);
       socket.data.room = room;
-      console.log(`${socket.id} joined ${room}`);
+      console.log(socket.id + " created " + room);
+      acknowledge?.({ ok: true, room });
+    });
+
+    socket.on("join-room", (rawRoom, acknowledge) => {
+      const room = typeof rawRoom === "string" ? rawRoom.trim().toUpperCase() : "";
+      if (!/^NOVA\d{4}$/.test(room)) {
+        acknowledge?.({ ok: false, message: "Room codes look like NOVA1234. Check the code and try again." });
+        return;
+      }
+      if (!io.sockets.adapter.rooms.has(room)) {
+        acknowledge?.({ ok: false, message: "Room not found. Check the code and try again." });
+        return;
+      }
+      if (socket.data.room && socket.data.room !== room) socket.leave(socket.data.room);
+      socket.join(room);
+      socket.data.room = room;
+      console.log(socket.id + " joined " + room);
+      acknowledge?.({ ok: true, room });
 
       const savedState = roomStates.get(room);
       if (savedState) {

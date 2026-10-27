@@ -45,10 +45,15 @@
   }
 
   function setupSearch(){
-    const toggle=$('#searchToggle'), search=$('#musicSearch'), close=$('#searchClose'), input=$('#musicSearchInput');
-    if(toggle&&search) toggle.addEventListener('click',()=>{search.classList.toggle('open');if(search.classList.contains('open'))input?.focus();});
-    close?.addEventListener('click',()=>search?.classList.remove('open'));
-    document.addEventListener('keydown',e=>{if(e.key==='/'&&!e.ctrlKey&&!e.metaKey){e.preventDefault();search?.classList.add('open');input?.focus();}});
+    document.addEventListener('keydown',event=>{
+      const target=event.target;
+      const typing=target instanceof HTMLElement && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName));
+      if(event.key==='/'&&!event.ctrlKey&&!event.metaKey&&!typing){
+        event.preventDefault();
+        const toggle=$('#searchToggle'),search=$('#musicSearch');
+        if(toggle&&search&&!search.classList.contains('open'))toggle.click();
+      }
+    });
   }
 
   function setupMiniPlayer(){
