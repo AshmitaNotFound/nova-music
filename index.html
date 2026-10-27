@@ -74,8 +74,10 @@ body.v2{background:#07100D}
 .v2-sync .core rect{filter:drop-shadow(0 0 16px rgba(56,163,165,.4))}
 .v2-sync .pulse{filter:drop-shadow(0 0 7px rgba(56,163,165,.7))}
 .team-card{position:relative;overflow:hidden;box-shadow:0 15px 45px rgba(0,0,0,.2)}
-.team-card:before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg,rgba(56,163,165,.18),transparent 45%,rgba(87,204,153,.12));opacity:.5}
-.team-photo-wrap{box-shadow:0 0 35px rgba(56,163,165,.16)}
+.team-card:before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg,rgba(56,163,165,.18),transparent 45%,rgba(87,204,153,.12));opacity:.5;pointer-events:none}
+.team-photo-wrap{outline:2px solid rgba(128,237,153,.88);outline-offset:4px;box-shadow:0 0 0 8px rgba(128,237,153,.08),0 0 32px rgba(56,163,165,.28)}
+.social-links{position:relative;z-index:2;pointer-events:auto}
+.social-btn{position:relative;z-index:2;pointer-events:auto}
 .mini-player{box-shadow:0 15px 60px rgba(0,0,0,.6),0 0 30px rgba(56,163,165,.08)}
 .v2-footer{position:relative}
 @media(max-width:650px){
