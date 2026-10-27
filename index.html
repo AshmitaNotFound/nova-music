@@ -165,16 +165,27 @@ body.v2{background:#07100D}
 <main>
   <section id="home" class="v2-hero">
     <div class="v2-hero-text" data-rv>
+      <p class="hero-eyebrow"><span></span> A soundtrack for every side of you</p>
       <h1>Your sound.<br><span>Your space.</span></h1>
       <p class="v2-lead">Music that moves with you.</p>
       <div class="v2-cta">
         <a href="#songs" class="v2-btn v2-btn-primary">Explore Music</a>
         <button type="button" class="v2-btn v2-btn-ghost" data-open-listen>Listen Together</button>
       </div>
+      <div class="hero-moods" id="heroMoods" aria-label="Explore music by mood">
+        <div class="hero-mood-heading"><span>FIND YOUR FREQUENCY</span><small>Pick a mood to explore</small></div>
+        <div class="hero-mood-list">
+          <button type="button" data-mood-album="0"><i></i>Desi energy<span>↗</span></button>
+          <button type="button" data-mood-album="1"><i></i>After hours<span>↗</span></button>
+          <button type="button" data-mood-album="2"><i></i>Easy listening<span>↗</span></button>
+          <button type="button" data-mood-album="3"><i></i>Ocean air<span>↗</span></button>
+        </div>
+      </div>
     </div>
     <div class="v2-hero-art" id="heroVisual" data-rv>
       <div class="v2-hero-glow"></div>
       <img src="images/cover1.jpg" alt="Featured album artwork">
+      <div class="hero-cover-caption"><span>NOW IN THE SPOTLIGHT</span><strong id="heroAlbumTitle">Desi Heats</strong><small id="heroAlbumMeta">Nova · 10 tracks</small></div>
     </div>
   </section>
 
@@ -276,7 +287,7 @@ body.v2{background:#07100D}
       <h2>ONE ROOM.<br>SAME MOMENT.</h2>
       <p>Create a room, share the code, and play, pause and skip in sync across two devices.</p>
       <div class="v2-cta">
-        <button type="button" class="v2-btn v2-btn-primary" data-open-listen>Create room</button>
+        <button type="button" class="v2-btn v2-btn-primary" data-open-listen="create">Create room</button>
         <button type="button" class="v2-btn v2-btn-ghost" data-open-listen="join">Join room</button>
       </div>
     </div>

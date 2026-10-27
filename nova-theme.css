@@ -397,3 +397,63 @@ body[data-theme="ocean"] .v2-hero-art:before{
   .song-card:active .cover img{transform:scale(1.04)}
   .song-card .card-play{opacity:1;transform:none}
 }
+
+
+/* Fuller, editorial homepage hero */
+.v2-hero{min-height:650px;padding:88px 0 36px;gap:38px}
+.v2-hero-text h1{font-size:clamp(56px,7.2vw,94px);line-height:.99}
+.v2-hero-art img{width:min(392px,76vw)}
+.hero-moods{margin-top:24px;max-width:530px}
+.hero-mood-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.hero-mood-heading>span{font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--album-accent)}
+.hero-mood-heading small{font-size:10px;color:var(--nova-dim)}
+.hero-mood-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.hero-mood-list button{
+  display:flex;align-items:center;gap:9px;min-height:38px;padding:7px 10px;
+  border:1px solid rgba(226,199,164,.14);border-radius:7px;
+  background:rgba(239,220,195,.035);color:var(--nova-muted);
+  text-align:left;font-size:12px;cursor:pointer;
+  transition:background .22s,border-color .22s,color .22s,transform .22s var(--nova-ease);
+}
+.hero-mood-list button:hover{background:rgba(239,220,195,.09);border-color:var(--album-accent);color:var(--nova-text);transform:translateY(-2px)}
+.hero-mood-list button:active{transform:scale(.98)}
+.hero-mood-list button>span{margin-left:auto;color:var(--album-accent);opacity:.7}
+.hero-mood-list button i{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:var(--album-accent);box-shadow:0 0 0 3px var(--album-glow)}
+.hero-mood-list button:nth-child(2) i{background:#d5ad69}
+.hero-mood-list button:nth-child(3) i{background:#c88b70}
+.hero-mood-list button:nth-child(4) i{background:#83a9a4}
+.hero-cover-caption{
+  position:absolute;z-index:2;left:7%;right:7%;bottom:4%;
+  display:flex;flex-direction:column;align-items:flex-start;gap:2px;
+  padding:12px 15px;border:1px solid rgba(239,220,195,.19);border-radius:7px;
+  background:rgba(31,23,17,.84);color:var(--nova-text);
+  box-shadow:0 8px 25px rgba(8,5,3,.22);backdrop-filter:blur(12px);
+  animation:captionSettle .55s var(--nova-ease) both;
+}
+.hero-cover-caption>span{font-size:9px;font-weight:700;letter-spacing:.16em;color:var(--album-accent)}
+.hero-cover-caption strong{font:600 20px "Fraunces",Georgia,serif}
+.hero-cover-caption small{font-size:11px;color:var(--nova-muted)}
+@keyframes captionSettle{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(max-width:900px){
+  .v2-hero{min-height:auto;padding:82px 0 42px;gap:30px}
+  .hero-moods{margin:22px auto 0}
+}
+@media(max-width:650px){
+  .v2-hero{padding-top:88px;padding-bottom:40px;gap:34px}
+  .hero-moods{width:100%;margin-top:20px}
+  .hero-mood-list{gap:6px}
+  .hero-mood-list button{min-height:36px;padding:6px 8px;font-size:11px}
+  .hero-cover-caption{left:5%;right:5%;bottom:3%;padding:9px 11px}
+  .hero-cover-caption strong{font-size:17px}
+}
+
+.hero-eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 15px;color:var(--nova-muted);font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase}
+.hero-eyebrow>span{width:7px;height:7px;border-radius:50%;background:var(--album-accent);box-shadow:0 0 0 4px var(--album-glow)}
+.hero-mood-list button:focus-visible{outline:2px solid var(--album-accent);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.hero-mood-list button,.hero-cover-caption{animation:none!important;transition:none!important}}
+
+/* Tighter page rhythm */
+.v2-section{padding-top:76px;padding-bottom:76px}
+.v2-head{margin-bottom:26px}
+.v2-together{padding-top:84px;padding-bottom:84px;gap:58px}
+@media(max-width:900px){.v2-together{padding-top:68px;padding-bottom:68px;gap:30px}}
