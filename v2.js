@@ -60,6 +60,38 @@
     $('#miniOpenPlayer')?.addEventListener('click',()=>$('#player')?.scrollIntoView({behavior:'smooth'}));
   }
 
+  function setupFloatingNav(){
+    const nav=$('.v2-nav');
+    if(!nav)return;
+
+    let previousY=window.scrollY;
+    let scheduled=false;
+
+    const setVisible=visible=>{
+      nav.classList.toggle('nav-hidden',!visible);
+      nav.setAttribute('aria-hidden',String(!visible));
+      nav.inert=!visible;
+    };
+
+    if(previousY>40)setVisible(false);
+
+    const update=()=>{
+      const currentY=window.scrollY;
+      if(currentY<=32)setVisible(true);
+      else if(currentY>previousY+6)setVisible(false);
+      else if(currentY<previousY-6)setVisible(true);
+      previousY=currentY;
+      scheduled=false;
+    };
+
+    window.addEventListener('scroll',()=>{
+      if(!scheduled){
+        scheduled=true;
+        requestAnimationFrame(update);
+      }
+    },{passive:true});
+  }
+
   function setupActiveNav(){
     const links=$$('.v2-link'), sections=['home','songs','liked-songs','player','together','team'].map(id=>$('#'+id)).filter(Boolean);
     const update=()=>{
@@ -71,6 +103,6 @@
   }
 
   document.addEventListener('DOMContentLoaded',()=>{
-    setupIcons();setupReveal();setupAlbumPlay();setupLibraryTabs();setupSearch();setupMiniPlayer();setupActiveNav();
+    setupIcons();setupReveal();setupAlbumPlay();setupLibraryTabs();setupSearch();setupMiniPlayer();setupFloatingNav();setupActiveNav();
   });
 })();
