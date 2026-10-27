@@ -1215,6 +1215,10 @@ function playLikedSongAt(position) {
           "true"
         );
 
+      if (searchResults) {
+        searchResults.hidden = !musicSearchInput?.value.trim();
+      }
+
       setTimeout(
         () =>
           musicSearchInput
@@ -1287,14 +1291,15 @@ function playLikedSongAt(position) {
         currentSearchResults = [];
 
         if (searchResults) {
-          searchResults.innerHTML = `
-            <div class="search-placeholder">
-              Start typing to discover music.
-            </div>
-          `;
+          searchResults.hidden = true;
+          searchResults.innerHTML = "";
         }
 
         return;
+      }
+
+      if (searchResults) {
+        searchResults.hidden = false;
       }
 
       const results = [];
