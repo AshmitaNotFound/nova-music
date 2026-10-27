@@ -41,6 +41,10 @@
       const key=tab.dataset.tab;
       tabs.forEach(t=>t.setAttribute('aria-selected',String(t===tab)));
       Object.entries(panels).forEach(([name,p])=>{if(p)p.hidden=name!==key;});
+      const activePanel=panels[key];
+      if(activePanel && typeof activePanel.animate==='function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        activePanel.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],{duration:260,easing:'cubic-bezier(.2,.7,.2,1)'});
+      }
     }));
   }
 
