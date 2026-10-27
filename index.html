@@ -75,9 +75,13 @@ body.v2{background:#07100D}
 .v2-sync .pulse{filter:drop-shadow(0 0 7px rgba(56,163,165,.7))}
 .team-card{position:relative;overflow:hidden;box-shadow:0 15px 45px rgba(0,0,0,.2)}
 .team-card:before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg,rgba(56,163,165,.18),transparent 45%,rgba(87,204,153,.12));opacity:.5;pointer-events:none}
-.team-photo-wrap{outline:2px solid rgba(128,237,153,.88);outline-offset:4px;box-shadow:0 0 0 8px rgba(128,237,153,.08),0 0 32px rgba(56,163,165,.28)}
+.team-photo-wrap{outline:2px solid rgba(255,132,174,.92);outline-offset:4px;box-shadow:0 0 0 8px rgba(255,132,174,.10),0 0 32px rgba(255,91,153,.28)}
 .social-links{position:relative;z-index:2;pointer-events:auto}
 .social-btn{position:relative;z-index:2;pointer-events:auto}
+.social-btn[href*="instagram.com"]{color:#ffb1c8;border-color:rgba(255,90,145,.55);background:rgba(225,48,108,.14)}
+.social-btn[href*="instagram.com"]:hover{color:#ffd3df;border-color:#e1306c;background:rgba(225,48,108,.25)}
+.social-btn[href*="linkedin.com"]{color:#9dccff;border-color:rgba(10,102,194,.60);background:rgba(10,102,194,.15)}
+.social-btn[href*="linkedin.com"]:hover{color:#fff;border-color:#0a66c2;background:rgba(10,102,194,.28)}
 .mini-player{box-shadow:0 15px 60px rgba(0,0,0,.6),0 0 30px rgba(56,163,165,.08)}
 .v2-footer{position:relative}
 @media(max-width:650px){
@@ -148,6 +152,7 @@ body.v2{background:#07100D}
       <a href="#songs" class="v2-link">Discover</a>
       <a href="#liked-songs" class="v2-link">Library</a>
       <a href="#together" class="v2-link">Together</a>
+      <a href="#team" class="v2-link">Developers</a>
     </nav>
   </div>
 </header>
